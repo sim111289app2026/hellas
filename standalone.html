@@ -1,0 +1,1538 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playbook — Archivio Squadra</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='20' font-size='20'%3E%E2%9A%BD%3C/text%3E%3C/svg%3E">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+:root{font-family:'DM Sans',sans-serif;color:#17221d;background:#f4f6f2;font-synthesis:none}
+*{box-sizing:border-box}
+body{margin:0;min-width:320px;line-height:1.5;background:#f4f6f2}
+button,input{font:inherit}
+button{cursor:pointer}
+button:disabled{cursor:not-allowed;opacity:.6}
+.app-shell{min-height:100vh}
+.topbar{height:76px;background:#fff;border-bottom:1px solid #e5eae5;display:flex;align-items:center;padding:0 5vw;gap:38px;position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:11px;border:0;background:transparent;padding:0;color:#17221d;text-align:left}
+.brand-mark{width:36px;height:36px;display:grid;place-items:center;color:#fff;background:#174f38;border-radius:11px}
+.brand strong,.brand small{display:block;line-height:1.1}
+.brand strong{font-family:'Space Grotesk',sans-serif;font-size:17px}
+.brand small{color:#829088;font-size:10px;margin-top:4px;letter-spacing:.06em;text-transform:uppercase}
+nav{display:flex;align-items:center;gap:6px;flex:1;overflow-x:auto}
+.nav-button{border:0;background:transparent;color:#77847c;display:flex;align-items:center;gap:8px;padding:10px 13px;border-radius:9px;font-size:13px;font-weight:600;transition:.2s;white-space:nowrap}
+.nav-button:hover,.nav-button.active{color:#174f38;background:#edf5ef}
+.top-actions{display:flex;gap:8px;align-items:center}
+.icon-button,.outline-button{border:1px solid #dce4dd;background:#fff;color:#607168;border-radius:8px;display:flex;gap:7px;align-items:center;justify-content:center;height:36px}
+.icon-button{width:36px}
+.outline-button{padding:0 12px;font-weight:600;font-size:12px}
+.icon-button:hover,.outline-button:hover{border-color:#7a9a85;color:#174f38}
+.page-content{max-width:1240px;margin:auto;padding:46px 5vw 72px}
+.eyebrow{font-size:10px;font-weight:700;color:#809187;letter-spacing:.15em;margin:0 0 10px}
+h1,h2{font-family:'Space Grotesk',sans-serif;margin:0;line-height:1.13;letter-spacing:-.035em}
+h1{font-size:clamp(35px,5vw,60px)}
+h1 em{color:#337250;font-style:normal}
+h2{font-size:22px}
+.hero{min-height:267px;background:linear-gradient(135deg,#dcebe0 0%,#edf6ef 100%);border-radius:22px;padding:42px 48px;display:flex;justify-content:space-between;align-items:center;overflow:hidden;position:relative;box-shadow:0 15px 35px rgba(44,91,59,.07)}
+.hero:after{content:'';position:absolute;width:340px;height:340px;right:80px;top:-145px;border:1px solid rgba(23,79,56,.15);border-radius:50%;box-shadow:0 0 0 28px rgba(23,79,56,.05),0 0 0 59px rgba(23,79,56,.04)}
+.hero-copy,.page-banner p:not(.eyebrow){color:#5e7467;max-width:425px;font-size:15px;margin:17px 0 0}
+.hero-ball{width:180px;height:180px;border-radius:50%;background:#337250;color:#dcebe0;display:grid;place-items:center;transform:rotate(-18deg);box-shadow:0 22px 35px rgba(23,79,56,.18);z-index:1}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:23px 0}
+.stat-card{background:#fff;border:1px solid #e7ece7;border-radius:15px;padding:18px;display:flex;gap:13px;align-items:flex-start;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(30,62,43,.07);border-color:#d3e1d5}
+.stat-icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#eff5ef;color:#337250}
+.stat-icon svg{width:17px}
+.stat-card.orange .stat-icon{color:#bd6b29;background:#fff3e7}
+.stat-card.blue .stat-icon{color:#3b6e8d;background:#edf5fa}
+.stat-card.red .stat-icon{color:#b85250;background:#fbeeee}
+.stat-card span,.stat-card small{display:block;color:#819087;font-size:11px}
+.stat-card strong{display:block;font:700 26px 'Space Grotesk';margin:2px 0}
+.stat-card small{color:#a3ada6}
+.content-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(280px,.8fr);gap:23px}
+.card{background:#fff;border:1px solid #e7ece7;border-radius:16px;padding:25px;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(30,62,43,.07);border-color:#d3e1d5}
+.section-heading{display:flex;justify-content:space-between;align-items:flex-start}
+.count-pill{background:#edf5ef;color:#337250;font-size:12px;font-weight:700;border-radius:20px;padding:5px 10px}
+.inline-form{display:flex;gap:8px;margin:22px 0 8px}
+.inline-form input,.match-form input{min-width:0;border:1px solid #dfe6e0;background:#fafcf9;border-radius:8px;color:#17221d;padding:11px 12px;outline:none;transition:.2s}
+.inline-form input{flex:1}
+.inline-form input:focus,.match-form input:focus{border-color:#57926b;box-shadow:0 0 0 3px rgba(87,146,107,.12)}
+.primary-button{border:0;background:#174f38;color:#fff;border-radius:8px;padding:0 15px;display:inline-flex;gap:7px;align-items:center;justify-content:center;font-size:12px;font-weight:700;min-height:40px;transition:.2s}
+.primary-button:hover{background:#0f3d2a;transform:translateY(-1px)}
+.cancel-edit{border:0;background:transparent;color:#809087;display:inline-flex;gap:4px;align-items:center;font-size:11px;padding:4px 0}
+.player-list{margin-top:12px}
+.player-row{display:flex;align-items:center;gap:13px;border-top:1px solid #edf0ed;padding:11px 0}
+.player-number{color:#a7b2aa;font:600 11px 'Space Grotesk';width:22px}
+.player-row strong{font-size:13px;font-weight:600;flex:1}
+.row-actions{display:flex;gap:3px}
+.row-actions button{border:0;background:transparent;color:#a4afa7;padding:6px;border-radius:6px}
+.row-actions button:hover{color:#b85250;background:#fbeeee}
+.row-actions button:first-child:hover{color:#337250;background:#edf5ef}
+.side-stack{display:flex;flex-direction:column;gap:12px}
+.quick-link{border:1px solid #e7ece7;background:#fff;border-radius:15px;padding:18px;display:flex;align-items:center;gap:13px;text-align:left;color:#17221d;transition:.2s;width:100%}
+.quick-link:hover{transform:translateX(3px);border-color:#bdd2c1;box-shadow:0 10px 26px rgba(30,62,43,.08)}
+.quick-icon{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:#edf5ef;color:#337250}
+.quick-link.orange .quick-icon{background:#fff3e7;color:#bd6b29}
+.quick-link.blue .quick-icon{background:#edf5fa;color:#3b6e8d}
+.quick-link span:nth-child(2){flex:1}
+.quick-link strong,.quick-link small{display:block}
+.quick-link strong{font-size:13px}
+.quick-link small{font-size:11px;color:#829088;margin-top:2px}
+.quick-link>svg{color:#b3beb6}
+.page-banner{border-radius:22px;padding:38px 44px;display:flex;justify-content:space-between;align-items:center;overflow:hidden;box-shadow:0 15px 35px rgba(44,91,59,.06)}
+.page-banner.csi{background:#f8e8d7}
+.page-banner.aics{background:#dcebf1}
+.page-banner.rankings{background:#dcebe0}
+.page-banner.totale{background:#e8e4f0}
+.page-banner .eyebrow{color:#6d7d72}
+.page-banner h1{font-size:clamp(32px,4vw,48px)}
+.page-banner.csi h1 em{color:#b5682c}
+.page-banner.aics h1 em{color:#3b6e8d}
+.page-banner.rankings h1 em{color:#337250}
+.page-banner.totale h1 em{color:#5b4a8a}
+.banner-icon{width:112px;height:112px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.4);color:rgba(23,79,56,.48);transform:rotate(-10deg)}
+.back-link{border:0;background:transparent;padding:0;color:#64756a;display:flex;align-items:center;gap:4px;font-size:11px;margin-bottom:22px}
+.form-wrap{max-width:1030px;margin:-23px auto 36px;position:relative}
+.match-form{background:#fff;padding:25px;border-radius:16px;box-shadow:0 13px 32px rgba(30,62,43,.09);border:1px solid #e7ece7}
+.form-title{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.form-title h2{font-size:19px}
+.mini-badge{border-radius:6px;padding:5px 8px;font-size:10px;font-weight:700;display:inline-flex;align-items:center;gap:5px}
+.mini-badge.orange{color:#a75e27;background:#fff0e0}
+.mini-badge.blue{color:#386c89;background:#e9f3f8}
+.close-form{margin-left:auto;background:transparent;border:0;color:#9aa79d}
+.form-grid{display:grid;grid-template-columns:.7fr .55fr .9fr 1fr .55fr .8fr;gap:10px}
+.match-form label{display:flex;flex-direction:column;gap:6px;color:#748279;font-size:11px;font-weight:600}
+.match-form input{width:100%;font-size:12px}
+.venue-toggle{display:flex;gap:0;border:1px solid #dfe6e0;border-radius:8px;overflow:hidden;height:38px}
+.venue-toggle button{border:0;background:#fafcf9;color:#748279;font-size:11px;font-weight:600;padding:0 10px;flex:1;display:flex;align-items:center;justify-content:center;gap:5px;transition:.15s}
+.venue-toggle button.active{background:#174f38;color:#fff}
+.selection-columns{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:21px}
+.selector{min-width:0}
+.selector-label{display:flex;justify-content:space-between;margin-bottom:9px}
+.selector-label strong{font-size:12px}
+.selector-label span{color:#9ca9a0;font-size:11px}
+.chip-list{display:flex;gap:6px;flex-wrap:wrap}
+.player-chip{border:1px solid #dfe7e0;background:#fafcf9;color:#64746a;border-radius:20px;padding:7px 10px;font-size:11px;transition:.15s}
+.player-chip:hover{border-color:#91b59a}
+.player-chip.selected{background:#e6f2e8;color:#225d3d;border-color:#9ac2a3}
+.player-chip.selected span{margin-right:4px}
+.selector-empty{border:1px dashed #d6dfd8;border-radius:8px;color:#9aa79e;font-size:11px;padding:12px}
+.form-footer{border-top:1px solid #edf0ed;margin-top:22px;padding-top:17px;display:flex;justify-content:space-between;align-items:center;color:#88968d;font-size:11px}
+.list-heading{margin-bottom:16px}
+.matches-list{display:flex;flex-direction:column;gap:8px}
+.match-row{background:#fff;border:1px solid #e7ece7;border-radius:13px;min-height:76px;padding:13px 17px;display:grid;grid-template-columns:80px 1fr 80px 145px auto;align-items:center;gap:12px 18px;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.match-row:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(30,62,43,.07);border-color:#d3e1d5}
+.match-date strong,.match-date span{display:block}
+.match-date strong{font:600 12px 'Space Grotesk';color:#3e5949}
+.match-date span{color:#a0aba3;font-size:11px;margin-top:2px}
+.match-teams{display:flex;align-items:center;gap:10px;font-size:13px}
+.match-teams .venue-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 6px;border-radius:4px}
+.match-teams .venue-tag.home{background:#edf5ef;color:#337250}
+.match-teams .venue-tag.away{background:#fef3e8;color:#bd6b29}
+.match-teams span.vs{color:#b0bab3;font-size:11px}
+.match-result{font:700 18px 'Space Grotesk';color:#337250;text-align:center}
+.match-meta{display:flex;gap:12px;color:#849188;font-size:11px}
+.match-meta span{display:flex;align-items:center;gap:4px}
+.match-row .row-actions{justify-content:flex-end}
+.match-events{grid-column:2/-1;display:flex;flex-wrap:wrap;gap:8px 14px;padding-top:10px;border-top:1px solid #eef2ee;color:#6d7e73;font-size:11px}
+.match-events span{display:inline-flex;gap:5px;align-items:center}
+.match-events b{font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.match-events .goal-event b{color:#337250}
+.match-events .yellow-event b{color:#b77722}
+.match-events .red-event b{color:#b85250}
+.match-events .conceded-event b{color:#b85250}
+.wdl{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;font:700 12px 'Space Grotesk';margin-left:8px;flex-shrink:0}
+.wdl.win{background:#e6f2e8;color:#337250}
+.wdl.draw{background:#f5f0e0;color:#8a7424}
+.wdl.lose{background:#fbeeee;color:#b85250}
+.comp-summary{margin-top:23px}
+.comp-summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:18px}
+.comp-stat-card{background:#fff;border:1px solid #e7ece7;border-radius:12px;padding:16px 18px}
+.comp-stat-card .comp-stat-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.comp-stat-card .comp-stat-head strong{font-size:13px;font-weight:700}
+.comp-stat-card .comp-stat-mini{font-size:10px;font-weight:700;padding:3px 7px;border-radius:5px}
+.comp-stat-card .comp-stat-mini.orange{background:#fff0e0;color:#a75e27}
+.comp-stat-card .comp-stat-mini.blue{background:#edf5fa;color:#3b6e8d}
+.comp-stat-card .comp-stat-row{display:flex;gap:12px;font-size:12px;color:#607168;padding:4px 0;border-top:1px solid #eef2ee}
+.comp-stat-row b{font:700 16px 'Space Grotesk';min-width:24px;text-align:center}
+.comp-stat-row .w-count{color:#337250}
+.comp-stat-row .d-count{color:#8a7424}
+.comp-stat-row .l-count{color:#b85250}
+.ranking-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px}
+.ranking-title{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.ranking-title h2{font-size:18px;letter-spacing:-.02em}
+.ranking-title p{color:#8b988f;margin:3px 0 0;font-size:11px}
+.ranking-table{border-top:1px solid #e9eee9}
+.ranking-head,.ranking-row{display:grid;grid-template-columns:35px 1fr 48px 65px;align-items:center;gap:8px}
+.ranking-head{padding:10px 0;color:#99a49d;font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+.ranking-row{border-top:1px solid #f0f3f0;min-height:47px;font-size:12px}
+.rank-number{color:#a5b0a8;font:600 11px 'Space Grotesk'}
+.ranking-row b{color:#337250;font:700 17px 'Space Grotesk'}
+.ranking-row>span:last-child{color:#738277}
+.empty-state{min-height:135px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:5px;color:#a1ada4}
+.empty-state svg{color:#aec1b2;margin-bottom:5px}
+.empty-state strong{color:#607168;font-size:13px}
+.empty-state span{font-size:11px}
+.alert{position:fixed;top:90px;right:24px;z-index:10;background:#fff1ef;color:#a84e48;border:1px solid #f3d0cc;padding:11px 13px;border-radius:9px;display:flex;gap:8px;align-items:center;font-size:12px;box-shadow:0 8px 24px rgba(72,31,29,.1)}
+.alert button{border:0;background:transparent;color:inherit;padding:0;margin-left:8px}
+.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);z-index:10;background:#174f38;color:#fff;border-radius:9px;padding:11px 15px;display:flex;align-items:center;gap:8px;font-size:12px;box-shadow:0 8px 24px rgba(23,79,56,.2)}
+.loading-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;gap:10px;color:#64806d;font-size:13px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.modal-backdrop{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:20px;background:rgba(16,39,27,.38);backdrop-filter:blur(7px);animation:fade-in .18s ease-out}
+.settings-modal{width:min(680px,100%);background:#fff;border:1px solid rgba(255,255,255,.65);border-radius:22px;padding:28px;box-shadow:0 26px 80px rgba(17,48,30,.24);animation:modal-up .22s ease-out}
+.modal-heading{display:flex;align-items:flex-start;gap:20px;justify-content:space-between;padding-bottom:21px;border-bottom:1px solid #edf0ed}
+.modal-heading h2{font-size:25px}
+.modal-heading p:not(.eyebrow){color:#809087;font-size:12px;margin:8px 0 0}
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:22px 0}
+.settings-grid label{display:flex;flex-direction:column;gap:7px;color:#748279;font-size:11px;font-weight:700}
+.settings-grid input{width:100%;border:1px solid #dfe6e0;background:#fafcf9;border-radius:9px;color:#17221d;padding:11px 12px;outline:none;transition:.2s;font-size:13px}
+.settings-grid input:focus{border-color:#57926b;box-shadow:0 0 0 3px rgba(87,146,107,.12)}
+.modal-actions{border-top:1px solid #edf0ed;padding-top:18px;display:flex;justify-content:flex-end;gap:9px}
+.modal-actions .outline-button{min-height:40px}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+@keyframes modal-up{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.summary-card{margin-top:23px;overflow:hidden}
+.summary-note{color:#9aa79e;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.summary-table{margin-top:18px;overflow-x:auto}
+.summary-groups,.summary-head,.summary-row{min-width:1140px;display:grid;grid-template-columns:minmax(160px,1.6fr) repeat(15,minmax(52px,1fr));align-items:center;gap:8px}
+.summary-groups{color:#376047;font:700 11px 'Space Grotesk';text-transform:uppercase;letter-spacing:.1em;padding:0 14px 8px}
+.summary-groups b{grid-column:span 5;text-align:center;padding:7px;border-radius:7px;background:#edf5ef}
+.summary-groups b:nth-of-type(2){background:#edf5fa;color:#3b6e8d}
+.summary-groups b:nth-of-type(3){background:#f1f3ee;color:#66756b}
+.summary-head{color:#99a49d;border-top:1px solid #e9eee9;border-bottom:1px solid #e9eee9;padding:10px 14px;font-size:9px;text-transform:uppercase;letter-spacing:.06em}
+.summary-head span{text-align:center}
+.summary-row{min-height:49px;border-bottom:1px solid #f0f3f0;padding:0 14px;font-size:12px}
+.summary-row strong{font-weight:600}
+.summary-row span{color:#587362;font:700 16px 'Space Grotesk';text-align:center}
+.event-list{display:flex;flex-direction:column;gap:6px}
+.event-row{display:grid;grid-template-columns:1fr 25px 22px 25px;align-items:center;gap:4px;border:1px solid #e4ebe5;background:#fafcf9;border-radius:8px;padding:4px 6px 4px 10px;color:#53675a;font-size:11px}
+.event-row button{width:24px;height:24px;border:0;border-radius:6px;background:#e8f1e9;color:#337250;font-size:18px;line-height:1}
+.event-row button:hover:not(:disabled){background:#cfe4d2}
+.event-row button:disabled{background:#f0f3f0;color:#c1c9c3;opacity:1}
+.event-row b{text-align:center;color:#174f38;font-size:12px}
+.event-selector .selector-label span{color:#789080}
+.storage-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:#6b8a72;background:#e8f1ea;border:1px solid #cfe1d3;border-radius:6px;padding:5px 8px;white-space:nowrap;max-width:140px;overflow:hidden;text-overflow:ellipsis}
+.storage-badge.server{color:#3b6e8d;background:#edf5fa;border-color:#cddfeb}
+.storage-badge.browser{color:#6b8a72;background:#e8f1ea;border-color:#cfe1d3}
+.season-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:28px}
+.season-card{background:#fff;border:1px solid #e7ece7;border-radius:16px;padding:22px;cursor:pointer;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;position:relative}
+.season-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(30,62,43,.1);border-color:#c3d8c7}
+.season-card.totale-card{background:linear-gradient(135deg,#5b4a8a 0%,#7a6ba8 100%);color:#fff;border:none}
+.season-card.totale-card .season-num{color:rgba(255,255,255,.85)}
+.season-card.totale-card .season-name{color:#fff}
+.season-card.totale-card .season-stats{color:rgba(255,255,255,.8)}
+.season-card.totale-card .season-competitions{background:rgba(255,255,255,.15);color:rgba(255,255,255,.9)}
+.season-num{font:700 13px 'Space Grotesk';color:#a75e27;background:#fff0e0;display:inline-block;padding:4px 10px;border-radius:6px;margin-bottom:12px}
+.season-name{font:700 22px 'Space Grotesk';color:#17221d;display:block;margin-bottom:6px}
+.season-stats{font-size:12px;color:#829088;display:block;margin-bottom:14px}
+.season-competitions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.season-comp-badge{font-size:10px;font-weight:600;padding:4px 8px;border-radius:5px;background:#edf5ef;color:#337250}
+.season-comp-badge.blue{background:#edf5fa;color:#3b6e8d}
+.season-actions{position:absolute;top:16px;right:16px;display:flex;gap:4px}
+.season-actions button{border:0;background:transparent;color:#a4afa7;padding:5px;border-radius:6px}
+.season-actions button:hover{color:#b85250;background:#fbeeee}
+.season-actions button:first-child:hover{color:#337250;background:#edf5ef}
+.comp-list{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.comp-item{display:flex;align-items:center;gap:13px;border:1px solid #e7ece7;background:#fff;border-radius:12px;padding:14px 18px;transition:.2s}
+.comp-item:hover{border-color:#c3d8c7;box-shadow:0 6px 18px rgba(30,62,43,.06)}
+.comp-item .comp-info{flex:1}
+.comp-item .comp-info strong{font-size:14px;display:block}
+.comp-item .comp-info small{font-size:11px;color:#829088}
+.comp-item .comp-actions{display:flex;gap:6px}
+.comp-item .comp-actions button{border:1px solid #dce4dd;background:#fff;color:#607168;border-radius:7px;padding:6px 12px;font-size:11px;font-weight:600;transition:.15s}
+.comp-item .comp-actions button:hover{border-color:#7a9a85;color:#174f38}
+.comp-item .comp-actions button.danger:hover{border-color:#d4a8a6;color:#b85250;background:#fef5f4}
+.add-comp-form{display:flex;gap:8px;margin-top:14px}
+.add-comp-form input{flex:1;border:1px solid #dfe6e0;background:#fafcf9;border-radius:8px;color:#17221d;padding:10px 12px;outline:none;transition:.2s;font-size:13px}
+.add-comp-form input:focus{border-color:#57926b;box-shadow:0 0 0 3px rgba(87,146,107,.12)}
+.totale-table{margin-top:20px;border-top:1px solid #e9eee9}
+.totale-head,.totale-row{display:grid;grid-template-columns:minmax(160px,1fr) 70px 70px 70px 70px 80px;align-items:center;gap:10px;padding:12px 14px}
+.totale-head{color:#99a49d;font-size:10px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid #e9eee9}
+.totale-row{border-bottom:1px solid #f0f3f0;font-size:13px}
+.totale-row strong{font-weight:600}
+.totale-row b{color:#337250;font:700 16px 'Space Grotesk';text-align:center}
+.totale-row span{text-align:center;color:#587362;font:600 14px 'Space Grotesk'}
+@media(max-width:900px){.topbar{padding:0 20px;gap:18px}.nav-button span{display:none}.nav-button{padding:10px}.page-content{padding:28px 20px 55px}.stats-grid{grid-template-columns:repeat(2,1fr)}.content-grid,.ranking-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:repeat(2,1fr)}.venue-field{grid-column:span 2}.result-field{grid-column:span 2}.match-row{grid-template-columns:65px 1fr 60px;gap:12px}.match-meta{grid-column:2}.match-row .row-actions{grid-column:3;grid-row:1/span 2}.hero{padding:32px}.hero-ball{width:130px;height:130px}.hero-ball svg{width:62px}.summary-groups,.summary-head,.summary-row{min-width:1140px}.totale-head,.totale-row{grid-template-columns:1fr 50px 50px 50px 50px 60px;font-size:11px}}
+@media(max-width:600px){.topbar{height:64px}.brand small{display:none}.brand strong{font-size:15px}.top-actions .outline-button{font-size:0;width:36px;padding:0}.top-actions .outline-button svg{margin:auto}.storage-badge{display:none}.page-content{padding:20px 14px 45px}.hero{min-height:250px;padding:27px 24px}.hero-ball{position:absolute;right:-28px;bottom:-20px;opacity:.9}.hero h1{font-size:40px}.stats-grid{gap:8px}.stat-card{padding:12px;gap:8px}.stat-card strong{font-size:22px}.stat-card span{font-size:10px}.page-banner{padding:27px 23px}.banner-icon{width:75px;height:75px}.banner-icon svg{width:39px}.page-banner h1{font-size:32px}.page-banner p:not(.eyebrow){font-size:13px}.match-form,.card{padding:18px}.selection-columns{grid-template-columns:1fr;gap:18px}.form-footer{align-items:flex-start;flex-direction:column;gap:12px}.form-footer .primary-button{width:100%}.match-row{grid-template-columns:58px 1fr 45px;gap:8px;padding:12px}.match-teams{font-size:12px;gap:5px;flex-wrap:wrap}.match-result{font-size:16px}.match-meta{font-size:10px}.match-row .row-actions button{padding:4px}.ranking-head,.ranking-row{grid-template-columns:28px 1fr 35px 55px}.season-grid{grid-template-columns:1fr}.totale-head,.totale-row{grid-template-columns:1fr 40px 40px 40px 40px 50px;font-size:10px}}
+@media print{.no-print,.topbar,.alert,.toast{display:none!important}.page-content{max-width:none;padding:0}.hero,.page-banner{-webkit-print-color-adjust:exact;print-color-adjust:exact}.form-wrap{margin:20px 0}.match-form{box-shadow:none}.content-grid,.stats-grid,.ranking-grid{break-inside:avoid}.match-row,.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const TEAM_NAME='HELLAS ALBINEA';
+const defaultTitles={appTitle:'Playbook',appSubtitle:'Archivio squadra',homeTitle:'Il tuo archivio',homeAccent:'sempre aggiornato.'};
+const titleKeys=['appTitle','appSubtitle','homeTitle','homeAccent'];
+const emptyMatch={competition:'',match_date:new Date().toISOString().slice(0,10),match_time:'20:30',venue:'home',opponent:'',result:'',convocati:[],marcatori:[],ammoniti:[],espulsi:[],gol_subiti:[]};
+const STORE_KEY='archivio-squadra-data-v2';
+const uid=()=>'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{let r=Math.random()*16|0;return (c==='x'?r:(r&0x3|0x8)).toString(16)});
+
+let STORAGE_MODE='unknown';
+function svg(p,s=17){return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'}
+const I={
+shield:s=>svg('<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',s),
+home:s=>svg('<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>',s),
+flag:s=>svg('<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22V15"/>',s),
+trophy:s=>svg('<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',s),
+users:s=>svg('<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',s),
+activity:s=>svg('<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',s),
+goal:s=>svg('<circle cx="12" cy="12" r="10"/><path d="M12 2v20"/><path d="M2 12h20"/>',s),
+calendar:s=>svg('<rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/>',s),
+plus:s=>svg('<path d="M5 12h14"/><path d="M12 5v14"/>',s),
+pencil:s=>svg('<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/>',s),
+trash:s=>svg('<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6"/><path d="M14 11v6"/>',s),
+save:s=>svg('<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/>',s),
+x:s=>svg('<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',s),
+download:s=>svg('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/>',s),
+fileup:s=>svg('<path d="M14 2v6h6"/><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M12 18v-6"/><path d="m9 15 3-3 3 3"/>',s),
+filedown:s=>svg('<path d="M14 2v6h6"/><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M12 12v6"/><path d="m9 15 3 3 3-3"/>',s),
+chevron:s=>svg('<path d="m9 18 6-6-6-6"/>',s),
+arrowleft:s=>svg('<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',s),
+circleplus:s=>svg('<circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/>',s),
+loader:s=>svg('<path d="M21 12a9 9 0 1 1-6.219-8.56"/>',s),
+glove:s=>svg('<path d="M12 2a3 3 0 0 0-3 3v7.5a2.5 2.5 0 0 1-5 0V8a3 3 0 0 0-3 3v4a7 7 0 0 0 7 7h6a7 7 0 0 0 7-7v-6a3 3 0 0 0-3-3v5.5a2.5 2.5 0 0 1-5 0V5a3 3 0 0 0-3-3z"/>',s),
+chart:s=>svg('<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',s)
+};
+
+function esc(v){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]))}
+
+let S={page:'seasons',seasons:[],matches:[],titles:{...defaultTitles},currentSeasonId:null,currentCompId:null,loading:true,saving:false,error:'',notice:'',editingPlayer:null,editingMatch:null,titlesOpen:false};
+let F={...emptyMatch};
+let toastTimer=null;
+
+function readLocal(){
+  try{
+    let raw=localStorage.getItem(STORE_KEY);
+    if(!raw)return{seasons:[],players:[],matches:[],titles:{}};
+    return JSON.parse(raw);
+  }catch(e){return{seasons:[],players:[],matches:[],titles:{}}}
+}
+function writeLocal(data){
+  try{localStorage.setItem(STORE_KEY,JSON.stringify(data))}catch(e){}
+}
+
+async function detectStorageMode(){
+  if(location.protocol==='file:'){STORAGE_MODE='browser';return}
+  try{
+    let ctrl=new AbortController();
+    let to=setTimeout(()=>ctrl.abort(),1500);
+    let r=await fetch('/api/data',{method:'GET',signal:ctrl.signal});
+    clearTimeout(to);
+    if(r.ok){STORAGE_MODE='server';return}
+  }catch(e){}
+  STORAGE_MODE='browser';
+}
+
+async function loadAll(){
+  if(STORAGE_MODE==='server'){
+    let r=await fetch('/api/data');
+    if(!r.ok)throw new Error('load failed');
+    return r.json();
+  }
+  return readLocal();
+}
+
+async function saveAll(data){
+  if(STORAGE_MODE==='server'){
+    let r=await fetch('/api/data',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    if(!r.ok)throw new Error('save failed');
+    return;
+  }
+  writeLocal(data);
+  return Promise.resolve();
+}
+
+async function loadData(){
+  S.loading=true;S.error='';render();
+  try{
+    await detectStorageMode();
+    let data=await loadAll();
+    let st={};
+    if(data.titles){for(let k in data.titles){if(titleKeys.includes(k))st[k]=data.titles[k]}}
+    S.titles={...defaultTitles,...st};
+    S.matches=(data.matches||[]).sort((a,b)=>(b.match_date+' '+b.match_time).localeCompare(a.match_date+' '+a.match_time));
+    S.seasons=(data.seasons||[]).sort((a,b)=>b.label.localeCompare(a.label));
+    let oldPlayers=data.players||[];
+    S.seasons.forEach(s=>{if(!s.players)s.players=[]});
+    if(!S.seasons.length){
+      let s1={id:uid(),label:'2025/2026',players:oldPlayers.map(p=>({...p})),competitions:[{id:uid(),name:'CSI'},{id:uid(),name:'AICS'}]};
+      S.seasons=[s1];
+      await persist();
+    }else if(oldPlayers.length&&S.seasons.every(s=>!s.players||s.players.length===0)){
+      S.seasons[0].players=oldPlayers.map(p=>({...p}));
+      await persist();
+    }
+  }catch(e){S.error='Non riesco a caricare i dati.'}
+  S.loading=false;render();
+  let badge=document.getElementById('storageBadge');
+  if(badge){
+    badge.className='storage-badge no-print '+(STORAGE_MODE==='server'?'server':'browser');
+    badge.textContent=STORAGE_MODE==='server'?'Cartella (data.json)':'Browser (locale)';
+    badge.title=STORAGE_MODE==='server'?'I dati vengono salvati come file data.json nella cartella del programma':'I dati vengono salvati nel browser di questo computer. Usa Esporta Backup per trasferirli.';
+  }
+}
+
+function persist(){
+  let data={seasons:S.seasons,matches:S.matches,titles:S.titles};
+  return saveAll(data);
+}
+
+function notify(msg){
+  S.notice=msg;render();
+  if(toastTimer)clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>{S.notice='';render()},2800);
+}
+
+function getSeason(id){return S.seasons.find(s=>s.id===id)}
+function getCurrentSeason(){return getSeason(S.currentSeasonId)}
+function getComp(seasonId,compId){let s=getSeason(seasonId);return s?s.competitions.find(c=>c.id===compId):null}
+function seasonPlayers(seasonId){let s=getSeason(seasonId);return s?(s.players||[]):[]}
+function currentPlayers(){return seasonPlayers(S.currentSeasonId)}
+function allPlayers(){let names=new Set();S.seasons.forEach(s=>(s.players||[]).forEach(p=>names.add(p.name)));return [...names].sort((a,b)=>a.localeCompare(b))}
+
+function matchesInSeason(seasonId){
+  let s=getSeason(seasonId);
+  if(!s)return[];
+  let compIds=s.competitions.map(c=>c.id);
+  return S.matches.filter(m=>compIds.includes(m.competition));
+}
+function matchesInComp(seasonId,compId){
+  return S.matches.filter(m=>m.competition===compId);
+}
+
+function eventCount(matches,compId,name,key){
+  let pool=compId?matches.filter(m=>m.competition===compId):matches;
+  return pool.reduce((t,m)=>t+(m[key]||[]).filter(n=>n===name).length,0);
+}
+
+function formatEventNames(names){
+  let counts={};
+  names.forEach(n=>counts[n]=(counts[n]||0)+1);
+  return Object.entries(counts).map(([n,c])=>c>1?n+' \u00d7'+c:n).join(', ');
+}
+function htmlEventNames(names){return esc(formatEventNames(names)||'\u2014')}
+function dateLabel(d){return new Date(d+'T12:00:00').toLocaleDateString('it-IT',{day:'2-digit',month:'short'}).replace('.','')}
+
+/* Parse result like "3 - 2" → {hellas:3, opp:2}. If away, swap. */
+function parseResult(m){
+  if(!m.result)return null;
+  let parts=m.result.trim().split(/\s*-\s*/);
+  if(parts.length!==2)return null;
+  let h=parseInt(parts[0],10),a=parseInt(parts[1],10);
+  if(isNaN(h)||isNaN(a))return null;
+  if(m.venue==='home')return{hellas:h,opp:a};
+  return{hellas:a,opp:h};
+}
+/* Returns 'W','D','L' or null */
+function matchOutcome(m){let r=parseResult(m);if(!r)return null;if(r.hellas>r.opp)return'W';if(r.hellas<r.opp)return'L';return'D'}
+/* Count gol fatti (HELLAS) and gol subiti (avversari) from result field */
+function seasonGolFatti(sMatches){return sMatches.reduce((t,m)=>{let r=parseResult(m);return t+(r?r.hellas:0)},0)}
+function seasonGolSubiti(sMatches){return sMatches.reduce((t,m)=>{let r=parseResult(m);return t+(r?r.opp:0)},0)}
+/* W/D/L badge HTML */
+function wdlBadge(m){let o=matchOutcome(m);if(!o)return'';let cls=o==='W'?'wdl win':o==='D'?'wdl draw':'wdl lose';let txt=o==='W'?'V':o==='D'?'N':'P';return '<span class="'+cls+'">'+txt+'</span>'}
+
+/* Seasons CRUD */
+async function addSeason(e){
+  e.preventDefault();
+  let name=(document.getElementById('seasonInput')?.value||'').trim();
+  if(!name)return;
+  S.saving=true;S.error='';render();
+  try{
+    S.seasons=[...S.seasons,{id:uid(),label:name,players:[],competitions:[]}].sort((a,b)=>b.label.localeCompare(a.label));
+    await persist();notify('Annata aggiunta');
+  }catch(e){S.error='Non riesco ad aggiungere l\'annata.'}
+  S.saving=false;render();
+}
+
+async function removeSeason(id){
+  let s=getSeason(id);
+  if(!s)return;
+  if(!confirm('Eliminare l\'annata "'+s.label+'"? Tutte le partite collegate verranno eliminate.'))return;
+  try{
+    let compIds=s.competitions.map(c=>c.id);
+    S.matches=S.matches.filter(m=>!compIds.includes(m.competition));
+    S.seasons=S.seasons.filter(x=>x.id!==id);
+    await persist();notify('Annata eliminata');
+  }catch(e){S.error='Non riesco a eliminare l\'annata.'}
+  render();
+}
+
+function openSeason(id){S.currentSeasonId=id;S.currentCompId=null;S.page='seasonDetail';navigate('seasonDetail')}
+
+/* Competition CRUD */
+async function addCompetition(event) {
+  event.preventDefault();
+  let input = document.getElementById('compInput');
+  let name = input ? input.value.trim() : '';
+  if (!name) return;
+
+  let s = getCurrentSeason();
+  if (!s) return;
+
+  S.saving = true;
+  render();
+
+  try {
+    if (S.editingComp) {
+      // Sta modificando un campionato esistente
+      let comp = s.competitions.find(c => c.id === S.editingComp.id);
+      if (comp) comp.name = name;
+      S.editingComp = null; // Resetta lo stato di modifica
+    } else {
+      // Sta aggiungendo un nuovo campionato
+      let newComp = { id: 'c_' + Date.now(), name: name };
+      s.competitions.push(newComp);
+    }
+    await persist(); // Salva su LocalStorage
+    notify('Campionato salvato');
+  } catch (e) {
+    S.error = 'Impossibile salvare il campionato.';
+  } finally {
+    S.saving = false;
+    render();
+  }
+}
+
+function openCompetition(compId){S.currentCompId=compId;navigate('competition')}
+
+/* Player CRUD — per season */
+async function addPlayer(e){
+  e.preventDefault();
+  let s=getCurrentSeason();
+  if(!s){S.error='Seleziona prima un\'annata.';render();return}
+  let name=(document.getElementById('playerInput')?.value||'').trim();
+  if(!name)return;
+  let players=s.players||[];
+  S.saving=true;S.error='';render();
+  try{
+    let exists=players.some(p=>p.name.toLowerCase()===name.toLowerCase()&&(!S.editingPlayer||p.id!==S.editingPlayer.id));
+    if(exists)throw new Error('dup');
+    if(S.editingPlayer){
+      s.players=players.map(p=>p.id===S.editingPlayer.id?{...p,name}:p);
+      notify('Nome aggiornato');
+    }else{
+      s.players=[...players,{id:uid(),name,created_at:new Date().toISOString()}].sort((a,b)=>a.name.localeCompare(b.name));
+      notify('Giocatore aggiunto');
+    }
+    S.editingPlayer=null;
+    await persist();
+  }catch(e){S.error=S.editingPlayer?'Questo nome esiste già.':'Esiste già un giocatore con questo nome.'}
+  S.saving=false;render();
+}
+
+async function removePlayer(p){
+  if(!confirm('Rimuovere '+p.name+'?'))return;
+  let s=getCurrentSeason();
+  if(!s)return;
+  try{
+    s.players=(s.players||[]).filter(x=>x.id!==p.id);
+    await persist();notify('Nome rimosso');
+  }catch(e){S.error='Non riesco a rimuovere questo nome.'}
+  render();
+}
+
+function editPlayer(playerId){
+  // Recupera la stagione corrente per accedere alla lista dei giocatori
+  let s = getCurrentSeason();
+  let players = (s && s.players) || [];
+  
+  // Trova il giocatore intero partendo dall'ID ricevuto
+  let playerFound = players.find(p => p.id === playerId);
+  
+  // Se non lo trova (es. l'ID è già l'oggetto stesso), usa il parametro così com'è
+  S.editingPlayer = playerFound || playerId; 
+  
+  render();
+  
+  setTimeout(() => {
+    let i = document.getElementById('playerInput');
+    if (i && S.editingPlayer) {
+      i.value = S.editingPlayer.name || '';
+      i.focus();
+    }
+  }, 0);
+}
+
+/* Match CRUD */
+async function saveMatch(e){
+  e.preventDefault();
+  if(!F.opponent.trim()||!F.match_date||!F.match_time||!F.competition)return;
+  let payload={...F,opponent:F.opponent.trim(),result:F.result.trim()};
+  S.saving=true;S.error='';render();
+  try{
+    if(S.editingMatch){
+      S.matches=S.matches.map(m=>m.id===S.editingMatch.id?{...m,...payload,updated_at:new Date().toISOString()}:m);
+      notify('Partita aggiornata');
+    }else{
+      let now=new Date().toISOString();
+      S.matches=[{id:uid(),created_at:now,updated_at:now,...payload},...S.matches];
+      notify('Partita salvata');
+    }
+    S.editingMatch=null;
+    F={...emptyMatch,competition:S.currentCompId||''};
+    await persist();
+  }catch(e){S.error='Non riesco a salvare la partita.'}
+  S.saving=false;render();
+}
+
+async function removeMatch(m){
+  if(!confirm('Eliminare questa partita?'))return;
+  try{
+    S.matches=S.matches.filter(x=>x.id!==m.id);
+    await persist();notify('Partita eliminata');
+  }catch(e){S.error='Non riesco a eliminare la partita.'}
+  render();
+}
+
+function editMatch(m){S.editingMatch=m;F={...m};window.scrollTo({top:0,behavior:'smooth'});render()}
+function editMatchById(id){let m=S.matches.find(x=>x.id===id);if(m)editMatch(m)}
+function removeMatchById(id){let m=S.matches.find(x=>x.id===id);if(m)removeMatch(m)}
+function cancelMatchEdit(){S.editingMatch=null;F={...emptyMatch,competition:S.currentCompId||''};render()}
+
+function toggleConvocato(name){
+  F.convocati=F.convocati.includes(name)?F.convocati.filter(n=>n!==name):[...F.convocati,name];
+  F.marcatori=F.marcatori.filter(n=>F.convocati.includes(n));
+  F.ammoniti=F.ammoniti.filter(n=>F.convocati.includes(n));
+  F.espulsi=F.espulsi.filter(n=>F.convocati.includes(n));
+  F.gol_subiti=F.gol_subiti.filter(n=>F.convocati.includes(n));
+  renderFormSelections();
+}
+function addEvent(key,name){
+  if(key === 'gol_subiti') {
+    // Se c'è un malus negativo in memoria (es. "-Nome"), premendo "+" lo eliminiamo per risalire verso lo zero
+    let i = F[key].indexOf('-' + name);
+    if(i > -1) {
+      F[key].splice(i, 1);
+    } else {
+      F[key].push(name);
+    }
+  } else {
+    // Logica standard per tutti gli altri campi
+    F[key].push(name);
+  }
+  renderFormSelections();
+}
+
+function removeEvent(key,name){
+  if(key === 'gol_subiti') {
+    // Cerchiamo prima se ci sono gol positivi registrati
+    let i = F[key].lastIndexOf(name);
+    if(i > -1) {
+      F[key].splice(i, 1); // Se c'è un gol positivo, lo riduciamo
+    } else {
+      F[key].push('-' + name); // Se è a zero, spingiamo il contatore in negativo (es. "-Nome")
+    }
+  } else {
+    // Logica standard per gli altri campi: impedisce di scendere sotto lo zero
+    let i = F[key].lastIndexOf(name);
+    if(i < 0) return;
+    F[key].splice(i, 1);
+  }
+  renderFormSelections();
+}
+function setVenue(v){
+  // 1. Aggiorna il valore in memoria
+  F.venue = v;
+  
+  // 2. Se il form è presente nello schermo, aggiorna le classi active senza resettare i campi di testo
+  const form = document.getElementById('matchForm');
+  if (form) {
+    const buttons = form.querySelectorAll('.venue-toggle button');
+    buttons.forEach(btn => {
+      // Controlla se il testo o la funzione onclick corrisponde alla selezione per assegnare la classe active
+      const isHomeBtn = btn.getAttribute('onclick').includes('home');
+      if ((v === 'home' && isHomeBtn) || (v === 'away' && !isHomeBtn)) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+    
+    // 3. Opzionale: Aggiorna anche la sezione dei convocati sotto, come faceva prima il tuo codice
+    renderFormSelections();
+  }
+}
+/* Titles */
+async function saveTitles(e){
+  e.preventDefault();
+  let draft={};
+  titleKeys.forEach(k=>{let v=document.getElementById('title_'+k)?.value||'';draft[k]=v.trim()||defaultTitles[k]});
+  S.saving=true;S.error='';render();
+  try{
+    S.titles=draft;S.titlesOpen=false;
+    await persist();notify('Titoli aggiornati');
+  }catch(e){S.error='Non riesco a salvare i titoli.'}
+  S.saving=false;render();
+}
+
+/* Backup */
+function exportBackup(){
+  let backup={seasons:S.seasons,matches:S.matches,titles:S.titles,exportedAt:new Date().toISOString()};
+  let blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});
+  let link=document.createElement('a');link.href=URL.createObjectURL(blob);
+  link.download='archivio-squadra-'+new Date().toISOString().slice(0,10)+'.json';link.click();
+  URL.revokeObjectURL(link.href);notify('Backup esportato');
+}
+
+async function importBackup(input){
+  let file=input.files?.[0];input.value='';
+  if(!file)return;
+  try{
+    let content=JSON.parse(await file.text());
+    
+    // CORRETTO: Ora controlla "seasons" invece di "players"
+    if(!Array.isArray(content.seasons)||!Array.isArray(content.matches))throw new Error('bad');
+    
+    if(!confirm('Importare il backup? I dati attuali verranno sostituiti.'))return;
+    S.saving=true;S.error='';render();
+    if(content.titles){let st={};for(let k in content.titles){if(titleKeys.includes(k))st[k]=content.titles[k]}S.titles={...defaultTitles,...st}}
+    if(content.seasons)S.seasons=content.seasons;
+    S.seasons.forEach(s=>{if(!s.players)s.players=[]});
+    S.matches=(content.matches||[]).sort((a,b)=>(b.match_date+' '+b.match_time).localeCompare(a.match_date+' '+a.match_time));
+    await persist();notify('Backup importato');
+  }catch(e){S.error='Il file selezionato non è un backup valido.';S.saving=false;render()}
+}
+
+/* HTML Report — annual, for current season */
+function buildHtmlReport(){
+  let s=getCurrentSeason();
+  if(!s)return '';
+  let sMatches=matchesInSeason(s.id);
+  let metrics=['convocati','marcatori','ammoniti','espulsi','gol_subiti'];
+  let labels=['Pres.','Gol','Amm.','Esp.','Sub.'];
+  let compCols=s.competitions;
+  let players=s.players||[];
+  
+  // FUNZIONE DI PARSING INTELLIGENTE: Gestisce l'inversione Casa/Trasferta nel singolo match
+  function parseMatchResult(resStr, venue) {
+    let gf = 0; let gs = 0;
+    if (resStr && resStr.includes("-")) {
+      let parti = resStr.split("-");
+      let sinistra = parseInt(parti[0].trim(), 10) || 0;
+      let destra = parseInt(parti[1].trim(), 10) || 0;
+      if (venue === 'home') {
+        gf = sinistra; gs = destra;
+      } else {
+        gf = destra; gs = sinistra;
+      }
+    }
+    return { gf: gf, gs: gs };
+  }
+
+  // 1. RIGHE DEI GIOCATORI (Quadro Generale)
+  let summaryRows='';
+  for(let i=0; i<players.length; i++) {
+    let p=players[i];
+    let perComp=compCols.map(c=>metrics.map(m=>eventCount(sMatches,c.id,p.name,m)));
+    let total=metrics.map((m,idx)=>perComp.reduce((t,vals)=>t+vals[idx],0));
+    
+    summaryRows += '<tr style="height:40px;">'+
+      '<th style="padding-left:12px; font-weight:bold; color:#1b2a21; border-right:2px solid #a3bda8; text-align:left;">'+esc(p.name)+'</th>'+
+      perComp.map(vals=>vals.map((v, idx)=>'<td style="text-align:center; border-right:'+(idx===4?'2px solid #a3bda8':'1px solid #e8eee9')+';">'+v+'</td>').join('')).join('')+
+      total.map((v, idx)=>'<td style="text-align:center; font-weight:bold; background:#f5f7f4; color:#2b4234; border-right:'+(idx===4?'':'1px solid #e8eee9')+';">'+v+'</td>').join('')+
+    '</tr>';
+  }
+
+  // NUOVO: Calcolo e righe del Riepilogo Campionati dell'annata corrente
+  let compSummaryRows = compCols.map(c => {
+    let cMatches = sMatches.filter(m => m.competition === c.id);
+    let totalGol=0; let totalSub=0; let vinte=0; let pareggiate=0; let perse=0; let mCount=0;
+
+    cMatches.forEach(m => {
+      if (m.result && m.result.includes("-")) {
+        let resData = parseMatchResult(m.result, m.venue);
+        let matchGol = resData.gf;
+        let matchSub = resData.gs;
+        totalGol += matchGol;
+        totalSub += matchSub;
+        mCount++;
+
+        if(matchGol > matchSub) vinte++;
+        else if(matchGol === matchSub) pareggiate++;
+        else perse++;
+      }
+    });
+
+    let mLen = mCount > 0 ? mCount : cMatches.length;
+    let golPartita = mLen > 0 ? (totalGol / mLen).toFixed(2) : '0.00';
+    let subPartita = mLen > 0 ? (totalSub / mLen).toFixed(2) : '0.00';
+
+    return '<tr>' +
+      '<th style="padding-left:12px; text-align:left; font-weight:600;">' + esc(c.name) + '</th>' +
+      '<td>' + mLen + '</td>' +
+      '<td style="color:#2e7d32; font-weight:bold;">' + vinte + '</td>' +
+      '<td style="color:#f57c00; font-weight:bold;">' + pareggiate + '</td>' +
+      '<td style="color:#c62828; font-weight:bold;">' + perse + '</td>' +
+      '<td>' + totalGol + '</td>' +
+      '<td>' + totalSub + '</td>' +
+      '<td>' + golPartita + '</td>' +
+      '<td>' + subPartita + '</td>' +
+    '</tr>';
+  }).join('');
+  
+  // 2. RIGHE DELLE PARTITE
+  let matchRows=compId=>sMatches.filter(m=>m.competition===compId).map(m=>
+    '<tr><td>'+esc(dateLabel(m.match_date))+'</td><th>'+(m.venue==='home'?esc(TEAM_NAME)+' vs '+esc(m.opponent):esc(m.opponent)+' vs '+esc(TEAM_NAME))+'</th><td>'+esc(m.result||'\u2014')+'</td><td>'+htmlEventNames(m.marcatori)+'</td><td>'+htmlEventNames(m.ammoniti)+'</td><td>'+htmlEventNames(m.espulsi)+'</td><td>'+htmlEventNames(m.gol_subiti)+'</td></tr>'
+  ).join('');
+  
+  // 3. RIGHE DELLE CLASSIFICHE MARCATORI
+  let rankingRows=compId=>{
+    let activeInComp = [...players].filter(p=>{
+      let gol = eventCount(sMatches, compId, p.name, 'marcatori');
+      let pres = eventCount(sMatches, compId, p.name, 'convocati');
+      return gol > 0 || pres > 0;
+    });
+    if (activeInComp.length === 0) {
+      return '<tr><td colspan="4" style="padding:14px; color:#748278; text-align:center;">Nessun dato registrato per questo campionato.</td></tr>';
+    }
+    return activeInComp
+      .sort((a,b)=>eventCount(sMatches,compId,b.name,'marcatori')-eventCount(sMatches,compId,a.name,'marcatori')||a.name.localeCompare(b.name))
+      .map((p,i)=>
+        '<tr><td>'+(i+1)+'</td><th>'+esc(p.name)+'</th><td>'+eventCount(sMatches,compId,p.name,'marcatori')+'</td><td>'+eventCount(sMatches,compId,p.name,'convocati')+'</td></tr>'
+      ).join('');
+  };
+  
+  let compSpan=compCols.length*5;
+  
+  let compHeaders=compCols.map((c,idx)=>{
+    let bg = idx % 2 ? 'background:#edf5fa; color:#3b6e8d' : 'background:#edf5ef; color:#41634e';
+    return '<th colspan="5" style="text-align:center; font-weight:bold; border-right:2px solid #a3bda8; '+bg+'">'+esc(c.name)+'</th>';
+  }).join('');
+  
+  let subHeaders=compCols.map(()=>labels.map((l, idx)=>'<th style="font-weight:600; text-align:center; border-right:'+(idx===4?'2px solid #a3bda8':'1px solid #e8eee9')+';">'+l+'</th>').join('')).join('');
+  let totalHeaders=labels.map((l, idx)=>'<th style="font-weight:600; text-align:center; background:#f5f7f4; color:#525e55; border-right:'+(idx===4?'':'1px solid #e8eee9')+';">'+l+'</th>').join('');
+
+  return '<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(S.titles.appTitle)+' \u00b7 Report '+esc(s.label)+'</title><style>body{margin:0;background:#f4f7f4;color:#1b2a21;font:14px Arial,sans-serif;line-height:1.5}main{max-width:1180px;margin:0 auto;padding:36px 24px 60px}h1{margin:0 0 5px;font-size:32px}h2{margin:0 0 16px;font-size:22px}h3{margin:20px 0 8px;font-size:16px;color:#334e3d}p{color:#68776d}.intro{margin-bottom:28px}.section{background:#fff;border:1px solid #dfe8e1;border-radius:14px;padding:22px;margin:18px 0;overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:760px}th,td{padding:10px 12px;border-bottom:1px solid #e8eee9;text-align:left;vertical-align:middle}thead th{background:#edf5ef;color:#41634e;font-size:11px;text-transform:uppercase;letter-spacing:.06em}tbody th{font-weight:600}td:not(:first-child),th:not(:first-child){text-align:center}.group th{text-align:center}.empty{padding:22px;color:#748278}@media(max-width:700px){main{padding:22px 12px}.section{padding:15px}h1{font-size:26px}}</style></head><body><main><div class="intro"><h1>'+esc(S.titles.appTitle)+'</h1><p>Report annata '+esc(s.label)+' \u00b7 generato il '+new Date().toLocaleDateString('it-IT')+'</p></div>' +
+    
+    // TABELLA 1: QUADRO GIOCATORI GENERALI
+    '<section class="section"><h2>Presenze e provvedimenti</h2><table style="white-space:nowrap;"><thead><tr class="group" style="height:36px; border-bottom:1px solid #c2d1c5;"><th rowspan="2" style="padding-left:12px; text-align:left; border-right:2px solid #a3bda8; font-weight:bold; background:#edf5ef; color:#41634e;">Nome</th>'+compHeaders+'<th colspan="5" style="background:#f1f3ee; color:#66756b; text-align:center; font-weight:bold;">Totale</th></tr><tr style="height:32px; border-bottom:1px solid #c2d1c5; background:#f9fbf9; color:#748278;">'+subHeaders+totalHeaders+'</tr></thead><tbody>'+(players.length===0?'<tr><td colspan="'+(compSpan+6)+'" class="empty">Nessun giocatore registrato.</td></tr>':summaryRows)+'</tbody></table></section>' +
+    
+    // NUOVA TABELLA 2: RIEPILOGO COMPACT DEI CAMPIONATI DELL'ANNO
+    '<section class="section"><h2>Riepilogo campionati</h2><table><thead><tr><th style="padding-left:12px; text-align:left;">Campionato</th><th>Partite</th><th>Vinte</th><th>Pareggiate</th><th>Perse</th><th>GF</th><th>GS</th><th>GF/Partita</th><th>GS/Partita</th></tr></thead><tbody>' + (compCols.length === 0 ? '<tr><td colspan="9" class="empty">Nessun campionato registrato in questa annata.</td></tr>' : compSummaryRows) + '</tbody></table></section>' +
+    
+    // SEZIONI PARTITE E CLASSIFICHE MARCATORI
+    compCols.map(c=>'<section class="section"><h2>Partite '+esc(c.name)+'</h2><table><thead><tr><th>Data</th><th>Partita</th><th>Risultato</th><th>Marcatori</th><th>Gialli</th><th>Rossi</th><th>Subiti</th></tr></thead><tbody>'+matchRows(c.id)+'</tbody></table></section>').join('')+'<section class="section"><h2>Classifiche marcatori</h2>'+compCols.map(c=>'<h3>'+esc(c.name)+'</h3><table><thead><tr><th>#</th><th>Nome</th><th>Gol</th><th>Presenze</th></tr></thead><tbody>'+rankingRows(c.id)+'</tbody></table>').join('')+'</section></main></body></html>';
+}
+
+
+function downloadHtml(){
+  let html=buildHtmlReport();
+  if(!html)return;
+  let s=getCurrentSeason();
+  let blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  let url=URL.createObjectURL(blob);
+  let link=document.createElement('a');link.href=url;
+  link.download='report-'+(s?s.label:'squadra')+'-'+new Date().toISOString().slice(0,10)+'.html';link.click();
+  URL.revokeObjectURL(url);notify('Report HTML esportato');
+}
+
+/* Totale report */
+function buildTotaleReport(){
+  let seasons=S.seasons.filter(s=>s.label!=='Totale').sort((a,b)=>b.label.localeCompare(a.label));
+  let players=allPlayers();
+  
+  // FUNZIONE DI PARSING INTELLIGENTE: Sincronizzata con lo schermo per invertire i gol in trasferta
+  function parseMatchResult(resStr, venue) {
+    let gf = 0; let gs = 0;
+    if (resStr && resStr.includes("-")) {
+      let parti = resStr.split("-");
+      let sinistra = parseInt(parti[0].trim(), 10) || 0;
+      let destra = parseInt(parti[1].trim(), 10) || 0;
+      if (venue === 'home') {
+        gf = sinistra; gs = destra;
+      } else {
+        gf = destra; gs = sinistra;
+      }
+    }
+    return { gf: gf, gs: gs };
+  }
+
+  let yearRows=[];
+  for(let i=0; i<seasons.length; i++) {
+    let s=seasons[i];
+    let sMatches=matchesInSeason(s.id);
+    let validComps = (s.competitions || []).map(c => c.id);
+    let totalGol=0; let totalSub=0; let vinte=0; let pareggiate=0; let perse=0; let mCount=0;
+    
+    sMatches.forEach(m => {
+      if (m.result && m.result.includes("-") && validComps.includes(m.competition)) {
+        let resData = parseMatchResult(m.result, m.venue);
+        let matchGol = resData.gf; 
+        let matchSub = resData.gs;
+        
+        totalGol += matchGol; totalSub += matchSub;
+        mCount++;
+        if(matchGol > matchSub) vinte++;
+        else if(matchGol === matchSub) pareggiate++;
+        else perse++;
+      }
+    });
+    let mLen = mCount > 0 ? mCount : sMatches.length;
+    let golPartita = mLen > 0 ? (totalGol / mLen).toFixed(2) : '0.00';
+    let subPartita = mLen > 0 ? (totalSub / mLen).toFixed(2) : '0.00';
+    yearRows.push({s:s.label, gol:totalGol, sub:totalSub, matches:mLen, vinte:vinte, pareggiate:pareggiate, perse:perse, golPartita:golPartita, subPartita:subPartita});
+  }
+  
+  let playerRows=[];
+  for(let i=0; i<players.length; i++) {
+    let pname=players[i]; let perYear=[];
+    for(let j=0; j<seasons.length; j++) {
+      let sMatches=matchesInSeason(seasons[j].id);
+      let g=eventCount(sMatches,null,pname,'marcatori');
+      let sub=eventCount(sMatches,null,pname,'gol_subiti');
+      perYear.push({g:g, sub:sub});
+    }
+    let totG=0; let totSub=0;
+    for(let j=0; j<perYear.length; j++) { totG+=perYear[j].g; totSub+=perYear[j].sub; }
+    playerRows.push({pname:pname, perYear:perYear, totG:totG, totSub:totSub});
+  }
+  playerRows.sort((a,b)=>b.totG-a.totG||b.totSub-a.totSub||a.pname.localeCompare(b.pname));
+
+  let repStr = '<!doctype html><html lang="it"><head><meta charset="utf-8"><title>Report Totale</title><style>body{margin:0;background:#f4f7f4;color:#1b2a21;font:14px Arial,sans-serif}main{max-width:1180px;margin:0 auto;padding:36px 24px}.section{background:#fff;border:1px solid #dfe8e1;border-radius:14px;padding:22px;margin:18px 0;overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{padding:10px 12px;border-bottom:1px solid #e8eee9;text-align:left;vertical-align:middle}thead th{background:#edf5ef;color:#41634e;font-size:11px;text-transform:uppercase}td:not(:first-child),th:not(:first-child){text-align:center}</style></head><body><main><h1>' + esc(S.titles.appTitle) + '</h1><p>Report storico totali</p>';
+  
+  repStr += '<section class="section"><h2>Riepilogo per annata</h2><table><thead><tr><th>Annata</th><th>Partite</th><th>Vinte</th><th>Pareggiate</th><th>Perse</th><th>Gol Fatti</th><th>Gol Subiti</th><th>Gol Fatti/partita</th><th>Gol Subiti/partita</th></tr></thead><tbody>';
+  for(let i=0; i<yearRows.length; i++) {
+    let r = yearRows[i];
+    repStr += '<tr><th>' + esc(r.s) + '</th><td>' + r.matches + '</td><td style="color:#2e7d32;font-weight:bold">' + r.vinte + '</td><td style="color:#f57c00;font-weight:bold">' + r.pareggiate + '</td><td style="color:#c62828;font-weight:bold">' + r.perse + '</td><td>' + r.gol + '</td><td>' + r.sub + '</td><td>' + r.golPartita + '</td><td>' + r.subPartita + '</td></tr>';
+  }
+  repStr += '</tbody></table></section>';
+  
+  repStr += '<section class="section"><h2>GF e GS per giocatore</h2><table style="white-space:nowrap;"><thead><tr style="height:36px; border-bottom:1px solid #c2d1c5;"><th style="padding-left:12px; text-align:left; border-right:2px solid #a3bda8; background:#edf5ef; color:#41634e; font-weight:bold;">Giocatore</th><th colspan="2" style="background:#f1f3ee; color:#66756b; font-weight:bold; border-right:2px solid #a3bda8;">TOT</th>';
+  for(let i=0; i<seasons.length; i++) {
+    let bg = i % 2 ? 'background:#edf5fa; color:#3b6e8d' : 'background:#edf5ef; color:#41634e';
+    repStr += '<th colspan="2" style="font-weight:bold; border-right:2px solid #a3bda8; ' + bg + '">' + esc(seasons[i].label) + '</th>';
+  }
+  repStr += '</tr><tr style="height:30px; border-bottom:1px solid #c2d1c5; background:#f9fbf9; color:#748278; font-size:11px;"><th style="border-right:2px solid #a3bda8;"></th><th style="font-weight:600; background:#f5f7f4; color:#525e55; border-right:2px solid #a3bda8;">GF</th><th style="font-weight:600; background:#f5f7f4; color:#525e55; border-right:2px solid #a3bda8;">GS</th>';
+  for(let i=0; i<seasons.length; i++) { repStr += '<th style="font-weight:600;">GF</th><th style="font-weight:600; border-right:2px solid #a3bda8;">GS</th>'; }
+  repStr += '</tr></thead><tbody>';
+  
+  for(let i=0; i<playerRows.length; i++) {
+    let r = playerRows[i];
+    repStr += '<tr style="height:38px;"><td style="padding-left:12px; font-weight:bold; color:#1b2a21; border-right:2px solid #a3bda8;">' + esc(r.pname) + '</td><td style="font-weight:bold; background:#f5f7f4; border-right:1px solid #e8eee9; color:#2b4234;">' + r.totG + '</td><td style="font-weight:bold; color:#b85250; background:#f5f7f4; border-right:2px solid #a3bda8;">' + r.totSub + '</td>';
+    for(let j=0; j<r.perYear.length; j++) {
+      repStr += '<td>' + (r.perYear[j].g||0) + '</td><td style="color:#b85250; border-right:2px solid #a3bda8;">' + (r.perYear[j].sub||0) + '</td>';
+    }
+    repStr += '</tr>';
+  }
+  repStr += '</tbody></table></section></main></body></html>';
+  return repStr;
+}
+
+function downloadTotaleHtml(){
+  let html=buildTotaleReport();
+  let blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  let url=URL.createObjectURL(blob);
+  let link=document.createElement('a');link.href=url;
+  link.download='report-totale-'+new Date().toISOString().slice(0,10)+'.html';link.click();
+  URL.revokeObjectURL(url);notify('Report totale esportato');
+}
+
+/* Navigation */
+function navigate(p){
+  S.page=p;
+  S.editingMatch=null;
+  if(p==='competition'&&S.currentCompId){
+    F={...emptyMatch,competition:S.currentCompId};
+  }
+  render();
+}
+
+function render(){
+  let app=document.getElementById('app');
+  if(S.loading){
+    app.innerHTML='<div class="loading-screen">'+I.loader(28)+'<span>Caricamento archivio\u2026</span></div>';
+    return;
+  }
+  let t=S.titles;
+  let html='<div class="app-shell"><header class="topbar no-print">'+
+    '<button class="brand" onclick="navigate(\'seasons\')"><span class="brand-mark">'+I.shield(20)+'</span><span><strong>'+esc(t.appTitle)+'</strong><small>'+esc(t.appSubtitle)+'</small></span></button>'+
+    '<nav>'+renderNav()+'</nav>'+
+    '<div class="top-actions">'+
+      '<span class="storage-badge no-print" id="storageBadge">'+I.loader(13)+'</span>'+
+      '<button class="icon-button" onclick="openTitles()" title="Modifica titoli">'+I.pencil(17)+'</button>'+
+      '<button class="icon-button" onclick="exportBackup()" title="Esporta backup">'+I.download(17)+'</button>'+
+      '<button class="icon-button" onclick="document.getElementById(\'importFile\').click()" title="Importa backup">'+I.fileup(17)+'</button>'+
+      '<input type="file" id="importFile" accept="application/json" style="display:none" onchange="importBackup(this)">'+
+      (S.page==='seasonDetail'&&S.currentSeasonId?'<button class="outline-button" onclick="downloadHtml()">'+I.filedown(16)+' Report</button>':'')+
+      (S.page==='totale'?'<button class="outline-button" onclick="downloadTotaleHtml()">'+I.filedown(16)+' Report</button>':'')+
+    '</div></header>'+
+    '<main class="page-content">';
+  if(S.error)html+='<div class="alert no-print">'+I.x(16)+' '+esc(S.error)+'<button onclick="S.error=\'\';render()">'+I.x(15)+'</button></div>';
+  if(S.notice)html+='<div class="toast no-print">'+I.circleplus(16)+' '+esc(S.notice)+'</div>';
+  if(S.page==='seasons')html+=renderSeasons();
+  else if(S.page==='seasonDetail')html+=renderSeasonDetail();
+  else if(S.page==='competition')html+=renderCompetition();
+  else if(S.page==='totale')html+=renderTotale();
+  else if(S.page==='rankings')html+=renderRankings();
+  if(S.titlesOpen)html+=renderTitlesModal();
+  html+='</main></div>';
+  app.innerHTML=html;
+  if(S.page==='competition')attachFormListeners();
+  let badge=document.getElementById('storageBadge');
+  if(badge&&STORAGE_MODE!=='unknown'){
+    badge.className='storage-badge no-print '+(STORAGE_MODE==='server'?'server':'browser');
+    badge.textContent=STORAGE_MODE==='server'?'Cartella (data.json)':'Browser (locale)';
+    badge.title=STORAGE_MODE==='server'?'I dati vengono salvati come file data.json nella cartella del programma':'I dati vengono salvati nel browser di questo computer. Usa Esporta Backup per trasferirli.';
+  }
+}
+
+function renderNav(){
+  let btns='';
+  let s=getCurrentSeason();
+  btns+=navBtn('seasons',I.home(17),'Annate');
+  if(s&&S.page!=='seasons'){
+    btns+=navBtn('seasonDetail',I.flag(17),s.label);
+    if(S.currentCompId){
+      let c=getComp(s.id,S.currentCompId);
+      if(c)btns+=navBtn('competition',I.flag(17),c.name);
+    }
+    btns+=navBtn('rankings',I.trophy(17),'Classifiche');
+  }
+  btns+=navBtn('totale',I.chart(17),'Totale');
+  return btns;
+}
+
+function navBtn(page,icon,label){
+  let active=S.page===page;
+  return '<button class="nav-button'+(active?' active':'')+'" onclick="navigate(\''+page+'\')">'+icon+'<span>'+esc(label)+'</span></button>';
+}
+
+/* Seasons page */
+function renderSeasons(){
+  let t=S.titles;
+  let totalMatches=S.matches.length;
+  let totalPlayers=allPlayers().length;
+  let sortedSeasons=[...S.seasons].sort((a,b)=>b.label.localeCompare(b.label));
+  return '<section>'+
+    '<div class="hero"><div><p class="eyebrow">ARCHIVIO SQUADRA</p><h1>'+esc(t.homeTitle)+',<br><em>'+esc(t.homeAccent)+'</em></h1><p class="hero-copy">Seleziona un\'annata per gestire rosa, partite e statistiche, oppure consulta il totale storico.</p></div><div class="hero-ball">'+I.goal(86)+'</div></div>'+
+    '<div class="stats-grid">'+
+      statCard('Giocatori totali',totalPlayers,'nomi in tutte le annate',I.users(),'green')+
+      statCard('Annate',S.seasons.length,'stagioni archiviate',I.calendar(),'orange')+
+      statCard('Partite totali',totalMatches,'gare registrate',I.flag(),'blue')+
+    '</div>'+
+    '<div class="card" style="margin-top:23px"><div class="section-heading"><div><p class="eyebrow">ANNATE</p><h2>Seleziona stagione</h2></div></div>'+
+      '<form class="inline-form" onsubmit="addSeason(event)"><input id="seasonInput" placeholder="es. 2027/2028"><button class="primary-button"'+(S.saving?' disabled':'')+'>'+I.plus(17)+' Aggiungi annata</button></form>'+
+      '<div class="season-grid">'+
+        sortedSeasons.map(s=>{
+          let sMatches=matchesInSeason(s.id);
+          let sPlayers=(s.players||[]).length;
+          let compBadges=s.competitions.map((c,i)=>'<span class="season-comp-badge'+(i%2?' blue':'')+'">'+esc(c.name)+'</span>').join('');
+          return '<div class="season-card" onclick="openSeason(\''+esc(s.id)+'\')">'+
+            '<div class="season-actions no-print"><button onclick="event.stopPropagation();removeSeason(\''+esc(s.id)+'\')" aria-label="Elimina annata">'+I.trash(15)+'</button></div>'+
+            '<span class="season-num">'+esc(s.label)+'</span>'+
+            '<span class="season-name">'+s.competitions.length+' campionati</span>'+
+            '<span class="season-stats">'+sMatches.length+' partite · '+sPlayers+' giocatori</span>'+
+            '<div class="season-competitions">'+(compBadges||'<span class="season-comp-badge">Nessun campionato</span>')+'</div>'+
+          '</div>';
+        }).join('')+
+        '<div class="season-card totale-card" onclick="navigate(\'totale\')">'+
+          '<span class="season-num" style="background:rgba(255,255,255,.2);color:#fff">TUTTE</span>'+
+          '<span class="season-name">Totale storico</span>'+
+          /* AGGIORNATO: Modificata la descrizione per allinearla alle nuove colonne delle medie gol */
+          '<span class="season-stats">Classifica gol fatti e subiti per annata</span>'+
+          '<div class="season-competitions"><span class="season-comp-badge" style="background:rgba(255,255,255,.2);color:#fff">Report scaricabile</span></div>'+
+        '</div>'+
+      '</div>'+
+    '</div>'+
+  '</section>';
+}
+
+
+function removePlayerById(id){let s=getCurrentSeason();if(!s)return;let p=(s.players||[]).find(x=>x.id===id);if(p)removePlayer(p)}
+
+/* Season detail — manage competitions + players */
+function renderSeasonDetail(){
+  let s=getCurrentSeason();
+  if(!s)return emptyState(I.calendar(28),'Annata non trovata','Torna alla selezione annate.');
+  let sMatches=matchesInSeason(s.id);
+  let players=s.players||[];
+  return '<section class="competition-section">'+
+    '<div class="page-banner rankings"><div><button class="back-link no-print" onclick="navigate(\'seasons\')">'+I.arrowleft(15)+' Torna alle annate</button><p class="eyebrow">GESTIONE ANNATA</p><h1>'+esc(s.label)+'</h1><p>Gestisci rosa, campionati e partite di questa annata.</p></div><div class="banner-icon">'+I.flag(58)+'</div></div>'+
+    '<div class="content-grid">'+
+      '<div class="card player-card"><div class="section-heading"><div><p class="eyebrow">ROSA SQUADRA</p><h2>Giocatori '+esc(s.label)+'</h2></div><span class="count-pill">'+players.length+'</span></div>'+
+        '<form class="inline-form" onsubmit="addPlayer(event)"><input id="playerInput" placeholder="Nome e cognome"'+(S.editingPlayer?' value="'+esc(S.editingPlayer.name)+'"':'')+'><button class="primary-button"'+(S.saving?' disabled':'')+'>'+I.plus(17)+(S.editingPlayer?'Salva':'Aggiungi')+'</button></form>'+
+        (S.editingPlayer?'<button class="cancel-edit" onclick="S.editingPlayer=null;render()">'+I.x(14)+' Annulla modifica</button>':'')+
+        '<div class="player-list">'+
+          (players.length===0?
+            emptyState(I.users(28),'La rosa \u00e8 vuota','Aggiungi il primo giocatore per iniziare.'):
+            players.map((p,i)=>'<div class="player-row"><span class="player-number">'+String(i+1).padStart(2,'0')+'</span><strong>'+esc(p.name)+'</strong><div class="row-actions"><button onclick="editPlayer(\''+esc(p.id)+'\')" aria-label="Modifica">'+I.pencil(15)+'</button><button onclick="removePlayerById(\''+esc(p.id)+'\')" aria-label="Rimuovi">'+I.trash(15)+'</button></div></div>').join('')
+          )+
+        '</div>'+
+      '</div>'+
+      '<div class="side-stack">'+
+        '<div class="card"><div class="section-heading"><div><p class="eyebrow">CAMPIONATI</p><h2>Campionati</h2></div><span class="count-pill">'+s.competitions.length+'</span></div>'+
+          '<div class="comp-list">'+
+            (s.competitions.length===0?'<div style="padding:14px;color:#a1ada4;font-size:12px">Nessun campionato.</div>':'')+
+            s.competitions.map(c=>{
+              let cMatches=matchesInComp(s.id,c.id);
+              return '<div class="comp-item">'+
+                '<span class="quick-icon">'+I.flag(20)+'</span>'+
+                '<div class="comp-info"><strong>'+esc(c.name)+'</strong><small>'+cMatches.length+' partite</small></div>'+
+                '<div class="comp-actions">'+
+                  '<button type="button" onclick="openCompetition(\''+esc(c.id)+'\')">Apri</button>'+
+                  '<button type="button" style="background:none;border:none;cursor:pointer;padding:4px;" onclick="quickEditCompetition(\''+esc(c.id)+'\')" aria-label="Modifica">'+I.pencil(14)+'</button>'+
+                  '<button type="button" class="danger" onclick="removeCompetition(\''+esc(c.id)+'\')">Elimina</button>'+
+                '</div>'+
+              '</div>';
+            }).join('')+
+          '</div>'+
+          '<form class="add-comp-form" onsubmit="addCompetition(event)"><input id="compInput" placeholder="Nome campionato (CSI, AICS...)"><button class="primary-button"'+(S.saving?' disabled':'')+'>'+I.plus(17)+' Aggiungi</button></form>'+
+        '</div>'+
+      '</div>'+
+    '</div>'+
+    renderSummaryCard(s.id)+
+    renderCompSummary(s.id)+
+  '</section>';
+}
+
+/* Competition summary — played/won/drawn/lost per competition */
+function renderCompSummary(seasonId){
+  let s=getSeason(seasonId);
+  if(!s||!s.competitions.length)return'';
+  let cards=s.competitions.map((c,i)=>{
+    let cMatches=matchesInComp(seasonId,c.id);
+    let w=0,d=0,l=0;
+    cMatches.forEach(m=>{let o=matchOutcome(m);if(o==='W')w++;else if(o==='D')d++;else if(o==='L')l++});
+    let gf=cMatches.reduce((t,m)=>{let r=parseResult(m);return t+(r?r.hellas:0)},0);
+    let gs=cMatches.reduce((t,m)=>{let r=parseResult(m);return t+(r?r.opp:0)},0);
+    let miniCls=i%2?'blue':'orange';
+    return '<div class="comp-stat-card"><div class="comp-stat-head"><span class="comp-stat-mini '+miniCls+'">'+esc(c.name)+'</span><strong>'+cMatches.length+' partite</strong></div>'+
+      '<div class="comp-stat-row"><span>Vinte</span><b class="w-count">'+w+'</b></div>'+
+      '<div class="comp-stat-row"><span>Pareggiate</span><b class="d-count">'+d+'</b></div>'+
+      '<div class="comp-stat-row"><span>Perse</span><b class="l-count">'+l+'</b></div>'+
+      '<div class="comp-stat-row"><span>Gol fatti</span><b>'+gf+'</b></div>'+
+      '<div class="comp-stat-row"><span>Gol subiti</span><b>'+gs+'</b></div>'+
+    '</div>';
+  }).join('');
+  return '<div class="card comp-summary"><div class="section-heading"><div><p class="eyebrow">RIEPILOGO CAMPIONATI</p><h2>Partite, vittorie, pareggi e sconfitte</h2></div></div><div class="comp-summary-grid">'+cards+'</div></div>';
+}
+
+
+/* Funzione per MODIFICARE il nome del campionato al volo */
+async function quickEditCompetition(id) {
+  let s = getCurrentSeason();
+  if (!s) return;
+  let comp = s.competitions.find(c => c.id === id);
+  if (!comp) return;
+
+  // Mostra una finestra di dialogo nativa con il nome attuale precompilato
+  let newName = prompt("Modifica il nome del campionato:", comp.name);
+  if (newName === null) return; // Se l'utente preme annulla, si ferma
+  newName = newName.trim();
+  if (!newName) return;
+
+  try {
+    comp.name = newName;
+    await persist(); // Salva nel database locale di Opera Portable
+    notify('Campionato modificato con successo');
+  } catch (e) {
+    alert("Errore durante il salvataggio della modifica.");
+  }
+  render(); // Rinfresca lo schermo
+}
+
+/* Funzione per ELIMINARE il singolo campionato e le sue partite */
+async function removeCompetition(id) {
+  let s = getCurrentSeason();
+  if (!s) return;
+  let comp = s.competitions.find(c => c.id === id);
+  if (!comp) return;
+
+  if (!confirm('Eliminare il campionato "' + comp.name + '"? Tutte le partite collegate verranno eliminate.')) return;
+
+  try {
+    // 1. Elimina tutte le partite associate a questo specifico campionato
+    S.matches = S.matches.filter(m => m.competition !== id);
+    // 2. Rimuove il campionato dalla lista dell'annata corrente
+    s.competitions = s.competitions.filter(c => c.id !== id);
+    
+    await persist(); // Salva le modifiche sul database locale
+    notify('Campionato eliminato');
+  } catch (e) {
+    alert("Non riesco a eliminare il campionato.");
+  }
+  render(); // Rinfresca l'interfaccia grafica
+}
+
+
+
+function editCompetition(id) {
+  let s = getCurrentSeason();
+  if (!s) return;
+  let comp = s.competitions.find(c => c.id === id);
+  if (comp) {
+    S.editingComp = { id: comp.id, name: comp.name };
+    render();
+  }
+}
+
+/* Competition — match form + list */
+function renderCompetition(){
+  let s=getCurrentSeason();
+  if(!s||!S.currentCompId)return emptyState(I.flag(28),'Seleziona un campionato','Torna all\'annata per scegliere un campionato.');
+  let c=getComp(s.id,S.currentCompId);
+  if(!c)return emptyState(I.flag(28),'Campionato non trovato','Torna all\'annata.');
+  let matches=matchesInComp(s.id,c.id);
+  let editing=S.editingMatch&&S.editingMatch.competition===c.id?S.editingMatch:null;
+  if(!S.editingMatch)F={...emptyMatch,competition:c.id};
+  return '<section class="competition-section">'+
+    '<div class="page-banner csi"><div><button class="back-link no-print" onclick="navigate(\'seasonDetail\')">'+I.arrowleft(15)+' Torna all\'annata</button><p class="eyebrow">REGISTRO PARTITE</p><h1>'+esc(c.name)+'</h1><p>'+esc(s.label)+' \u00b7 Inserisci le gare, i convocati e i marcatori di '+esc(TEAM_NAME)+'.</p></div><div class="banner-icon">'+I.flag(58)+'</div></div>'+
+    '<div class="form-wrap">'+renderMatchForm(c,editing)+'</div>'+
+    '<div class="section-heading list-heading"><div><p class="eyebrow">ARCHIVIO</p><h2>Partite '+esc(c.name)+'</h2></div><span class="count-pill">'+matches.length+'</span></div>'+
+    '<div class="matches-list">'+
+      (matches.length===0?emptyState(I.calendar(28),'Nessuna partita registrata','Compila il modulo qui sopra per aggiungere la prima gara.'):
+        matches.map(m=>renderMatchRow(m)))+
+    '</div></section>';
+}
+
+function renderMatchForm(c,editing){
+  let s=getCurrentSeason();
+  return '<form class="match-form" id="matchForm" onsubmit="saveMatch(event)">'+
+    '<div class="form-title"><span class="mini-badge orange">'+I.flag(15)+' '+esc(c.name)+'</span><h2>'+(editing?'Modifica partita':'Nuova partita')+'</h2>'+(editing?'<button type="button" class="close-form" onclick="cancelMatchEdit()">'+I.x(18)+'</button>':'')+'</div>'+
+    '<div class="form-grid">'+
+      '<label>Giorno<input type="date" id="mf_date" value="'+esc(F.match_date)+'" required></label>'+
+      '<label>Ora<input type="time" id="mf_time" value="'+esc(F.match_time)+'" required></label>'+
+      '<label class="venue-field">Sede<div class="venue-toggle"><button type="button" class="'+(F.venue==='home'?'active':'')+'" onclick="setVenue(\'home\')">Casa</button><button type="button" class="'+(F.venue==='away'?'active':'')+'" onclick="setVenue(\'away\')">Trasferta</button></div></label>'+
+      '<label>Avversario<input id="mf_opponent" value="'+esc(F.opponent)+'" placeholder="Squadra avversaria" required></label>'+
+      '<label>Risultato<input id="mf_result" value="'+esc(F.result)+'" placeholder="es. 3 - 2"></label>'+
+      '<label>Annata<input value="'+esc(s?s.label:'')+'" disabled style="opacity:.6"></label>'+
+    '</div>'+
+    '<div style="margin-top:14px;padding:10px 14px;background:#edf5ef;border-radius:8px;font-size:12px;color:#337250;font-weight:600">'+I.shield(14)+' '+esc(TEAM_NAME)+(F.venue==='home'?' (Casa)':' (Trasferta)')+' vs '+esc(F.opponent||'...')+'</div>'+
+    '<div id="formSelections">'+renderSelections()+'</div>'+
+    '<div id="formFooter">'+renderFormFooter()+'</div>'+
+  '</form>';
+}
+
+function renderSelections(){
+  let players=currentPlayers();
+  let availablePlayers=players.filter(p=>F.convocati.includes(p.name));
+  return '<div class="selection-columns">'+
+    renderConvocati()+
+    renderEventSelector('Marcatori','marcatori',availablePlayers)+
+    renderEventSelector('Ammonizioni','ammoniti',availablePlayers)+
+    renderEventSelector('Gol subiti PORTIERE','gol_subiti',availablePlayers)+
+    renderEventSelector('Espulsioni','espulsi',availablePlayers)+
+    
+  '</div>';
+}
+
+function renderConvocati(){
+  let players=currentPlayers();
+  return '<div class="selector"><div class="selector-label"><strong>Convocati</strong><span>'+F.convocati.length+' selezionati</span></div>'+
+    (players.length===0?'<div class="selector-empty">Aggiungi prima i giocatori nella gestione annata.</div>':
+      '<div class="chip-list">'+players.map(p=>{
+        let sel=F.convocati.includes(p.name);
+        return '<button type="button" class="player-chip'+(sel?' selected':'')+'" onclick="toggleConvocato(\''+esc(p.name).replace(/'/g,"\\'")+'\')">'+(sel?'<span>\u2713</span>':'')+esc(p.name)+'</button>';
+      }).join('')+'</div>')+
+  '</div>';
+}
+
+function renderEventSelector(label,key,players){
+  return '<div class="selector event-selector"><div class="selector-label"><strong>'+label+'</strong><span>'+F[key].length+' registrati</span></div>'+
+    (players.length===0?'<div class="selector-empty">'+(F.convocati.length?'Nessuno selezionato.':'Seleziona i convocati per registrare.')+'</div>':
+      '<div class="event-list">'+players.map(p=>{
+        // CALCOLO DINAMICO DEL VALORE: Sottrae i malus negativi dai gol positivi
+        let positivi = F[key].filter(n => n === p.name).length;
+        let negativi = F[key].filter(n => n === ('-' + p.name)).length;
+        let count = positivi - negativi;
+        
+        // Il tasto meno è sempre attivo per i gol subiti, bloccato a zero per gli altri
+        let isDisabled = (key === 'gol_subiti') ? '' : (count <= 0 ? ' disabled' : '');
+        
+        return '<div class="event-row"><span>'+esc(p.name)+'</span><button type="button" onclick="removeEvent(\''+key+'\',\''+esc(p.name).replace(/'/g,"\\'")+'\')"'+isDisabled+' aria-label="Riduci">\u2212</button><b>'+count+'</b><button type="button" onclick="addEvent(\''+key+'\',\''+esc(p.name).replace(/'/g,"\\'")+'\')" aria-label="Aggiungi">+</button></div>';
+      }).join('')+'</div>')+
+  '</div>';
+}
+
+function renderFormFooter(){
+  return '<div class="form-footer"><span>'+F.convocati.length+' convocati \u00b7 '+F.marcatori.length+' gol \u00b7 '+F.ammoniti.length+' amm. \u00b7 '+F.espulsi.length+' esp. \u00b7 '+F.gol_subiti.length+' subiti</span><button class="primary-button"'+(S.saving||!currentPlayers().length?' disabled':'')+'>'+I.save(16)+' '+(S.editingMatch?'Aggiorna partita':'Salva partita')+'</button></div>';
+}
+
+function renderFormSelections(){
+  let el=document.getElementById('formSelections');
+  if(el)el.innerHTML=renderSelections();
+  let ft=document.getElementById('formFooter');
+  if(ft)ft.innerHTML=renderFormFooter();
+}
+
+function attachFormListeners(){
+  let opp=document.getElementById('mf_opponent');
+  if(opp)opp.addEventListener('input',e=>{F.opponent=e.target.value;let info=document.querySelector('.match-form div[style*="edf5ef"]');if(info)info.innerHTML=I.shield(14)+' '+esc(TEAM_NAME)+(F.venue==='home'?' (Casa)':' (Trasferta)')+' vs '+esc(F.opponent||'...')});
+  let res=document.getElementById('mf_result');
+  if(res)res.addEventListener('input',e=>{F.result=e.target.value});
+  let date=document.getElementById('mf_date');
+  if(date)date.addEventListener('input',e=>{F.match_date=e.target.value});
+  let time=document.getElementById('mf_time');
+  if(time)time.addEventListener('input',e=>{F.match_time=e.target.value});
+}
+
+function renderMatchRow(m){
+  let events=[];
+  if(m.marcatori.length)events.push({label:'Marcatori',value:m.marcatori,cls:'goal-event'});
+  if(m.ammoniti.length)events.push({label:'Gialli',value:m.ammoniti,cls:'yellow-event'});
+  if(m.espulsi.length)events.push({label:'Rossi',value:m.espulsi,cls:'red-event'});
+  if(m.gol_subiti&&m.gol_subiti.length)events.push({label:'Subiti',value:m.gol_subiti,cls:'conceded-event'});
+  let venueTag=m.venue==='home'?'<span class="venue-tag home">Casa</span>':'<span class="venue-tag away">Trasf.</span>';
+  
+  /* MODIFICATO: Inverte l'ordine dei nomi se si gioca in trasferta */
+  let teamsDisplay = m.venue === 'home' 
+    ? '<strong>'+esc(TEAM_NAME)+'</strong><span class="vs">vs</span><strong>'+esc(m.opponent)+'</strong>'
+    : '<strong>'+esc(m.opponent)+'</strong><span class="vs">vs</span><strong>'+esc(TEAM_NAME)+'</strong>';
+
+  return '<article class="match-row"><div class="match-date"><strong>'+esc(dateLabel(m.match_date))+'</strong><span>'+esc(m.match_time.slice(0,5))+'</span></div><div class="match-teams">'+venueTag+teamsDisplay+'</div><div class="match-result">'+esc(m.result||'\u2014')+wdlBadge(m)+'</div><div class="match-meta"><span>'+I.users(14)+' '+m.convocati.length+'</span><span>'+I.goal(14)+' '+m.marcatori.length+'</span><span>Gialli '+m.ammoniti.length+'</span><span>Rossi '+m.espulsi.length+'</span><span>Subiti '+((m.gol_subiti||[]).length)+'</span></div><div class="row-actions no-print"><button onclick="editMatchById(\''+esc(m.id)+'\')" aria-label="Modifica">'+I.pencil(15)+'</button><button onclick="removeMatchById(\''+esc(m.id)+'\')" aria-label="Elimina">'+I.trash(15)+'</button></div>'+(events.length?'<div class="match-events">'+events.map(ev=>'<span class="'+ev.cls+'"><b>'+ev.label+'</b>'+esc(formatEventNames(ev.value))+'</span>').join('')+'</div>':'')+'</article>';
+}
+
+/* Summary card with gol subiti */
+function renderSummaryCard(seasonId){
+  let s=getSeason(seasonId);
+  if(!s)return'';
+  let players=s.players||[];
+  let sMatches=matchesInSeason(seasonId);
+  let metrics=['convocati','marcatori','ammoniti','espulsi','gol_subiti'];
+  let labels=['Pres.','Gol','Amm.','Esp.','Sub.'];
+  let compCols=s.competitions;
+  
+  // Calcolo delle dimensioni minime per evitare sovrapposizioni
+  let totalMetricsColumns = (compCols.length * 5) + 5;
+  let nameWidth = 180;
+  let colWidth = 45;
+  let minGridWidth = nameWidth + (totalMetricsColumns * colWidth);
+
+  return '<div class="card summary-card">' +
+    '<div class="section-heading">' +
+      '<div><p class="eyebrow">QUADRO RIASSUNTIVO</p><h2>Presenze e provvedimenti</h2></div>' +
+      '<span class="summary-note">'+compCols.map(c=>esc(c.name)).join(' \u00b7 ')+' \u00b7 TOTALE</span>' +
+    '</div>' +
+    
+    // Contenitore per lo scorrimento orizzontale se necessario
+    '<div class="summary-table" style="overflow-x:auto; width:100%; border:1px solid #dfe8e1; border-radius:8px;">' +
+      /* AGGIORNATO: width:100% occupa tutto lo spazio disponibile eliminando il vuoto, min-width protegge i dati se aumentano i campionati */
+      '<table style="width:100%; min-width:'+minGridWidth+'px; border-collapse:collapse; font-size:13px; font-family:sans-serif; table-layout:fixed; white-space:nowrap; user-select:none;">' +
+        
+        '<colgroup>' +
+          '<col style="width:'+nameWidth+'px;">' +
+          compCols.map(()=>'<col><col><col><col><col>').join('') +
+          '<col><col><col><col><col>' +
+        '</colgroup>' +
+        
+        '<thead>' +
+          // 1. RIGA DEI GRUPPI (CAMPIONATI)
+          '<tr style="background:#edf5ef; height:36px; border-bottom:1px solid #c2d1c5; font-weight:bold; color:#41634e; font-size:11px; text-transform:uppercase; letter-spacing:.06em;">' +
+            '<th style="padding-left:12px; text-align:left; border-right:2px solid #a3bda8; font-weight:bold;">Nome</th>' +
+            compCols.map((c,i)=>{
+              let bg = i % 2 ? 'background:#edf5fa; color:#3b6e8d' : 'background:#edf5ef; color:#41634e';
+              return '<th colspan="5" style="'+bg+'; text-align:center; border-right:2px solid #a3bda8; font-weight:bold;">'+esc(c.name)+'</th>';
+            }).join('') +
+            '<th colspan="5" style="background:#f1f3ee; color:#66756b; text-align:center; font-weight:bold;">Totale</th>' +
+          '</tr>' +
+          
+          // 2. RIGA DELLE INTESTAZIONI METRICHE (Pres. Gol Amm...)
+          '<tr style="background:#f9fbf9; height:32px; border-bottom:1px solid #c2d1c5; font-weight:600; font-size:11px; color:#748278; text-align:center;">' +
+            '<th style="border-right:2px solid #a3bda8; background:#f9fbf9;"></th>' +
+            compCols.map(()=>labels.map((l, idx)=>'<th style="font-weight:600; text-align:center; border-right:'+(idx===4?'2px solid #a3bda8':'1px solid #e8eee9')+';">'+l+'</th>').join('')).join('') +
+            labels.map((l, idx)=>'<th style="font-weight:600; text-align:center; background:#f5f7f4; color:#525e55; border-right:'+(idx===4?'':'1px solid #e8eee9')+';">'+l+'</th>').join('') +
+          '</tr>' +
+        '</thead>' +
+        
+        '<tbody>' +
+          // 3. RIGHE DEI GIOCATORI
+          (players.length===0 ? 
+            '<tr><td colspan="'+(totalMetricsColumns+1)+'" style="padding:20px; text-align:center;">Nessun giocatore in rosa.</td></tr>' :
+            players.map(p=>{
+              let perComp=compCols.map(c=>metrics.map(m=>eventCount(sMatches,c.id,p.name,m)));
+              let total=metrics.map((m,i)=>perComp.reduce((t,vals)=>t+vals[i],0));
+              
+              return '<tr style="border-bottom:1px solid #e8eee9; height:40px; text-align:center;">' +
+                '<td style="padding-left:12px; text-align:left; font-weight:bold; color:#1b2a21; border-right:2px solid #a3bda8; overflow:hidden; text-overflow:ellipsis;">'+esc(p.name)+'</td>' +
+                perComp.map(vals=>vals.map((v, idx)=>'<td style="color:#42614d; text-align:center; border-right:'+(idx===4?'2px solid #a3bda8':'1px solid #e8eee9')+';">'+v+'</td>').join('')).join('') +
+                total.map((v, idx)=>'<td style="color:#2b4234; text-align:center; font-weight:bold; background:#f5f7f4; border-right:'+(idx===4?'':'1px solid #e8eee9')+';">'+v+'</td>').join('') +
+              '</tr>';
+            }).join('')
+          ) +
+        '</tbody>' +
+      '</table>' +
+    '</div>' +
+  '</div>';
+}
+
+/* Rankings — per season */
+function renderRankings(){
+  let s=getCurrentSeason();
+  if(!s)return emptyState(I.trophy(28),'Seleziona un\'annata','Torna alla selezione annate.');
+  let players=s.players||[];
+  let sMatches=matchesInSeason(s.id);
+  let stats=players.map(p=>{
+    let r={name:p.name};
+    s.competitions.forEach(c=>{
+      r[c.id+'_A']=eventCount(sMatches,c.id,p.name,'convocati');
+      r[c.id+'_G']=eventCount(sMatches,c.id,p.name,'marcatori');
+    });
+    return r;
+  }).sort((a,b)=>{
+    let aG=s.competitions.reduce((t,c)=>t+(b[c.id+'_G']||0),0);
+    let bG=s.competitions.reduce((t,c)=>t+(a[c.id+'_G']||0),0);
+    return aG-bG||a.name.localeCompare(b.name);
+  });
+  let renderTable=compId=>'<div class="ranking-table"><div class="ranking-head"><span>#</span><span>Nome</span><span>Gol</span><span>Presenze</span></div>'+stats.map((st,i)=>'<div class="ranking-row"><span class="rank-number">'+String(i+1).padStart(2,'0')+'</span><strong>'+esc(st.name)+'</strong><b>'+(st[compId+'_G']||0)+'</b><span>'+(st[compId+'_A']||0)+'</span></div>').join('')+'</div>';
+  return '<section class="rankings-section"><div class="page-banner rankings"><div><button class="back-link no-print" onclick="navigate(\'seasonDetail\')">'+I.arrowleft(15)+' Torna all\'annata</button><p class="eyebrow">STATISTICHE STAGIONALI</p><h1>'+esc(s.label)+' \u2014 <em>Classifiche</em></h1><p>Un riepilogo sempre aggiornato di tutte le partite registrate.</p></div><div class="banner-icon">'+I.trophy(58)+'</div></div><div class="ranking-grid">'+
+    s.competitions.map((c,i)=>'<div class="card ranking-card"><div class="ranking-title"><span class="mini-badge '+(i%2?'blue':'orange')+'">'+esc(c.name)+'</span><div><h2>'+esc(c.name)+'</h2><p>Gol e presenze</p></div></div>'+((s.players||[]).length?renderTable(c.id):emptyState(I.trophy(28),'Nessun dato ancora','Registra una partita per vedere la classifica.'))+'</div>').join('')+
+  '</div></section>';
+}
+
+/* Totale page */
+function renderTotale(){
+  let seasons=S.seasons.filter(s=>s.label!=='Totale').sort((a,b)=>b.label.localeCompare(a.label));
+  let players=allPlayers();
+  
+  // FUNZIONE DI PARSING INTELLIGENTE: Assegna correttamente i gol all'Hellas in base a Casa/Trasferta
+  function parseMatchResult(resStr, venue) {
+    let gf = 0;
+    let gs = 0;
+    if (resStr && resStr.includes("-")) {
+      let parti = resStr.split("-");
+      let sinistra = parseInt(parti[0].trim(), 10) || 0;
+      let destra = parseInt(parti[1].trim(), 10) || 0;
+      
+      if (venue === 'home') {
+        // Se giochiamo in Casa, i gol fatti sono a sinistra e quelli subiti a destra
+        gf = sinistra;
+        gs = destra;
+      } else {
+        // Se giochiamo in Trasferta, i gol fatti sono a destra e quelli subiti a sinistra
+        gf = destra;
+        gs = sinistra;
+      }
+    }
+    return { gf: gf, gs: gs };
+  }
+
+  let yearRows=[];
+  for(let i=0; i<seasons.length; i++) {
+    let s=seasons[i];
+    let sMatches=matchesInSeason(s.id);
+    let validComps = (s.competitions || []).map(c => c.id);
+    
+    let totalGol=0; let totalSub=0; let vinte=0; let pareggiate=0; let perse=0; let mCount=0;
+
+    for(let j=0; j<sMatches.length; j++) {
+      let m=sMatches[j];
+      
+      if (m.result && m.result.includes("-") && validComps.includes(m.competition)) {
+        // Passiamo il risultato e la sede (home/away) al parser intelligente
+        let resData = parseMatchResult(m.result, m.venue);
+        let matchGol = resData.gf;
+        let matchSub = resData.gs;
+
+        totalGol += matchGol; 
+        totalSub += matchSub;
+        mCount++;
+
+        if(matchGol > matchSub) vinte++;
+        else if(matchGol === matchSub) pareggiate++;
+        else perse++;
+      }
+    }
+    
+    let mLen = mCount > 0 ? mCount : sMatches.length;
+    let golPartita = mLen > 0 ? (totalGol / mLen).toFixed(2) : '0.00';
+    let subPartita = mLen > 0 ? (totalSub / mLen).toFixed(2) : '0.00';
+    yearRows.push({s:s.label, gol:totalGol, sub:totalSub, matches:mLen, vinte:vinte, pareggiate:pareggiate, perse:perse, golPartita:golPartita, subPartita:subPartita});
+  }
+  
+  let playerRows=[];
+  for(let i=0; i<players.length; i++) {
+    let pname=players[i]; let perYear=[];
+    for(let j=0; j<seasons.length; j++) {
+      let sMatches=matchesInSeason(seasons[j].id);
+      let g=eventCount(sMatches,null,pname,'marcatori');
+      let sub=eventCount(sMatches,null,pname,'gol_subiti');
+      perYear.push({g:g, sub:sub});
+    }
+    let totG=0; let totSub=0;
+    for(let j=0; j<perYear.length; j++) { totG+=perYear[j].g; totSub+=perYear[j].sub; }
+    playerRows.push({pname:pname, perYear:perYear, totG:totG, totSub:totSub});
+  }
+  playerRows.sort((a,b)=>b.totG-a.totG||b.totSub-a.totSub||a.pname.localeCompare(b.pname));
+  
+  let nameWidth = 180; let colWidth = 55; 
+  let totalGridWidth = nameWidth + (seasons.length * 2 * colWidth) + (2 * colWidth);
+  let yearGridTemplate = 'grid-template-columns:minmax(140px,1fr) 60px 50px 50px 50px 65px 65px 95px 95px';
+
+  let htmlStr = '<section class="rankings-section"><div class="page-banner totale"><div><button class="back-link no-print" style="background:none;border:none;color:#fff;cursor:pointer;margin-bottom:8px;padding:0;font-weight:600;display:flex;align-items:center;gap:4px;" onclick="navigate(\'seasons\')">' + I.arrowleft(15) + ' Torna alle annate</button><p class="eyebrow">TOTALE STORICO</p><h1>Classifica <em>per annata</em></h1><p>Gol fatti e subiti dei singoli giocatori divisi per anno, con classifica totale.</p></div><div class="banner-icon">' + I.chart(58) + '</div></div>';
+  htmlStr += '<div class="card"><div class="section-heading"><div><p class="eyebrow">RIEPILOGO ANNUALE</p><h2>Tutti gli anni</h2></div><button class="outline-button no-print" onclick="downloadTotaleHtml()">' + I.filedown(16) + ' Report HTML</button></div>';
+  
+  if(seasons.length===0){
+    htmlStr += emptyState(I.chart(28),'Nessuna annata','Aggiungi un\'annata per iniziare.');
+  } else {
+    htmlStr += '<div class="totale-table"><div class="totale-head" style="' + yearGridTemplate + '"><span>Annata</span><span>Partite</span><span>Vinte</span><span>Par.</span><span>Perse</span><span>Gol Fatti</span><span>Gol Subiti</span><span>Gol Fatti/Partita</span><span>Gol Subiti/Partita</span></div>';
+    for(let i=0; i<yearRows.length; i++) {
+      let r = yearRows[i];
+      htmlStr += '<div class="totale-row" style="' + yearGridTemplate + '"><strong>' + r.s + '</strong><span>' + r.matches + '</span><span style="color:#2e7d32;font-weight:600">' + r.vinte + '</span><span style="color:#f57c00;font-weight:600">' + r.pareggiate + '</span><span style="color:#c62828;font-weight:600">' + r.perse + '</span><b>' + r.gol + '</b><span>' + r.sub + '</span><span>' + r.golPartita + '</span><span>' + r.subPartita + '</span></div>';
+    }
+    htmlStr += '</div>';
+  }
+  htmlStr += '</div><div class="card" style="margin-top:23px;overflow-x:auto"><div class="section-heading"><div><p class="eyebrow">CLASSIFICA GIOCATORI DI SEMPRE</p><h2>Gol Fatti e Gol Subiti per giocatore</h2></div></div>';
+  
+  if(players.length===0){
+    htmlStr += emptyState(I.users(28),'Nessun giocatore','Aggiungi giocatori nelle annate per vedere la classifica.');
+  } else {
+    htmlStr += '<div style="overflow-x:auto; width:100%; border:1px solid #dfe8e1; border-radius:8px;"><table style="width:100%; min-width:' + totalGridWidth + 'px; border-collapse:collapse; font-size:13px; font-family:sans-serif; table-layout:fixed; white-space:nowrap; user-select:none; background:#fff;"><colgroup><col style="width:' + nameWidth + 'px;"><col style="width:' + colWidth + 'px;"><col style="width:' + colWidth + 'px;">';
+    for(let i=0; i<seasons.length; i++) { htmlStr += '<col style="width:' + colWidth + 'px;"><col style="width:' + colWidth + 'px;">'; }
+    htmlStr += '</colgroup><thead><tr style="background:#edf5ef; height:36px; border-bottom:1px solid #dfe8e1; font-weight:bold; color:#41634e; text-align:center;"><th style="padding-left:12px; text-align:left; border-right:2px solid #a3bda8; font-weight:bold;">Giocatore</th><th colspan="2" style="background:#f1f3ee; color:#5b4a8a; text-align:center; font-weight:bold; border-right:2px solid #a3bda8;">TOT</th>';
+    for(let i=0; i<seasons.length; i++) {
+      let bg = i % 2 ? 'background:#edf5fa; color:#3b6e8d' : 'background:#edf5ef; color:#41634e';
+      htmlStr += '<th colspan="2" style="' + bg + '; text-align:center; border-right:2px solid #a3bda8; font-weight:bold;">' + esc(seasons[i].label) + '</th>';
+    }
+    htmlStr += '</tr><tr style="background:#f9fbf9; height:30px; border-bottom:1px solid #c2d1c5; color:#748278; text-align:center; font-size:11px;"><th style="border-right:2px solid #a3bda8;"></th><th style="font-weight:600; background:#f5f7f4; color:#525e55;">GF</th><th style="font-weight:600; background:#f5f7f4; color:#525e55; border-right:2px solid #a3bda8;">GS</th>';
+    for(let i=0; i<seasons.length; i++) { htmlStr += '<th style="font-weight:600;">GF</th><th style="font-weight:600; border-right:2px solid #a3bda8;">GS</th>'; }
+    htmlStr += '</tr></thead><tbody>';
+    for(let i=0; i<playerRows.length; i++) {
+      let r = playerRows[i];
+      htmlStr += '<tr style="border-bottom:1px solid #e8eee9; height:38px; text-align:center;"><td style="padding-left:12px; text-align:left; font-weight:bold; color:#1b2a21; border-right:2px solid #a3bda8; overflow:hidden; text-overflow:ellipsis;">' + esc(r.pname) + '</td><td style="font-weight:bold; background:#f5f7f4; color:#2b4234;">' + r.totG + '</td><td style="font-weight:bold; color:#b85250; background:#f5f7f4; border-right:2px solid #a3bda8;">' + r.totSub + '</td>';
+      for(let j=0; j<r.perYear.length; j++) {
+        htmlStr += '<td style="color:#1b2a21;">' + (r.perYear[j].g||0) + '</td><td style="color:#b85250; border-right:2px solid #a3bda8;">' + (r.perYear[j].sub||0) + '</td>';
+      }
+      htmlStr += '</tr>';
+    }
+    htmlStr += '</tbody></table></div>';
+  }
+  htmlStr += '</div></section>';
+  return htmlStr;
+}
+
+/* Helpers */
+function statCard(label,value,detail,icon,accent){
+  return '<div class="stat-card '+accent+'"><div class="stat-icon">'+icon+'</div><div><span>'+label+'</span><strong>'+value+'</strong><small>'+detail+'</small></div></div>';
+}
+
+function quickLink(page,title,detail,tone){
+  let icon=page==='totale'?I.chart():I.trophy();
+  return '<button class="quick-link '+tone+'" onclick="navigate(\''+page+'\')"><span class="quick-icon">'+icon+'</span><span><strong>'+esc(title)+'</strong><small>'+esc(detail)+'</small></span>'+I.chevron(19)+'</button>';
+}
+
+function emptyState(icon,title,detail){
+  return '<div class="empty-state">'+icon+'<strong>'+esc(title)+'</strong><span>'+esc(detail)+'</span></div>';
+}
+
+/* Titles modal */
+function openTitles(){S.titlesOpen=true;render()}
+function closeTitles(){S.titlesOpen=false;render()}
+
+function renderTitlesModal(){
+  return '<div class="modal-backdrop no-print" onclick="if(event.target===this)closeTitles()"><form class="settings-modal" onsubmit="saveTitles(event)"><div class="modal-heading"><div><p class="eyebrow">PERSONALIZZA</p><h2>Titoli dell\u2019archivio</h2><p>Scegli i nomi che vuoi vedere nell\u2019intestazione e nelle pagine.</p></div><button type="button" class="close-form" onclick="closeTitles()">'+I.x(19)+'</button></div><div class="settings-grid">'+
+    titleInput('appTitle','Nome archivio')+
+    titleInput('appSubtitle','Sottotitolo')+
+    titleInput('homeTitle','Titolo pagina iniziale')+
+    titleInput('homeAccent','Seconda riga iniziale')+
+  '</div><div class="modal-actions"><button type="button" class="outline-button" onclick="closeTitles()">Annulla</button><button type="submit" class="primary-button"'+(S.saving?' disabled':'')+'>'+I.save(16)+' Salva titoli</button></div></form></div>';
+}
+
+function titleInput(key,label){
+  return '<label>'+label+'<input id="title_'+key+'" value="'+esc(S.titles[key])+'"></label>';
+}
+
+loadData();
+</script>
+</body>
+</html>
